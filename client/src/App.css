@@ -46,3 +46,47 @@ img {
 .container {
   flex: 1;
 }
+
+
+.container-excelupload{
+
+  width: 500px;
+
+  margin: auto;
+
+}
+.header{
+  font-size: 2rem;
+  text-align: center
+
+}
+.exceluploadForm {
+  display: none;
+}
+.excelupload-btn{
+  background-color: aliceblue;
+}
+
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  margin: auto;
+}
+
+input[type="file"] {
+  display: none;
+}
+
+.excelImportBtn {
+  text-align: center;
+  padding-top: 2rem;
+}
+.hr{
+  display: block;
+  height: 2px;
+  widows: 100%;
+  background-color: silver;
+  margin: 20px 0 20px 0;
+}

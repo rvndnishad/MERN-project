@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { loginUser } from '../../actions/authActions';
+import { Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
+import { log } from 'util';
+import { AppSwitch } from '@coreui/react'
+
 
 class Login extends Component {
   constructor() {
@@ -40,64 +44,94 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.password
     };
-
+    console.log(userData);
     this.props.loginUser(userData);
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  onChange(e) {     
+    this.setState({ 
+      [e.target.name] : e.target.value 
+    });
   }
 
   render() {
     const { errors } = this.state;
 
     return (
-      <div className="login">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6 m-auto">
-              <h1 className="display-6 text-center">Log In</h1>
-              <p className="lead text-center">
-                Sign in to your GroupM account
-              </p>
-              <form onSubmit={this.onSubmit} autocomplete="off">
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className={classnames('form-control form-control-md', {
-                      'is-invalid': errors.email
-                    })}
-                    autocomplete="off"
-                    placeholder="Email Address"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                  />
-                  {errors.email && (
-                    <div className="invalid-feedback">{errors.email}</div>
-                  )}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    autocomplete="off"
-                    className={classnames('form-control form-control-md', {
-                      'is-invalid': errors.password
-                    })}
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                  {errors.password && (
-                    <div className="invalid-feedback">{errors.password}</div>
-                  )}
-                </div>
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
-            </div>
-          </div>
-        </div>
+
+      <div className="app flex-row align-items-center">
+        <Container>
+          <Row className="justify-content-center">
+            <Col md="8">
+              <CardGroup>
+                <Card className="p-4">
+                  <CardBody>
+                    <Form onSubmit={this.onSubmit} autoComplete="off">
+                      <h1>Login</h1>
+                      <p className="text-muted">Sign In to your account</p>
+                      <InputGroup className="mb-3">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="icon-user"></i>
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input 
+                          type="text" 
+                          className={classnames('form-control form-control-md', {
+                            'is-invalid': errors.email
+                          })}
+                          name="email"
+                          placeholder="Username"  
+                          value={this.state.email}
+                          onChange={this.onChange}
+                        />
+                        {errors.email && (
+                          <div className="invalid-feedback">{errors.email}</div>
+                        )}
+                      </InputGroup>
+                      <InputGroup className="mb-4">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="icon-lock"></i>
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input 
+                          type="password" 
+                          placeholder="Password" 
+                          className={classnames('form-control form-control-md', {
+                            'is-invalid': errors.password
+                          })}
+                          name="password"
+                          value={this.state.password}
+                          onChange={this.onChange}
+                        />
+                        {errors.password && (
+                          <div className="invalid-feedback">{errors.password}</div>
+                        )}
+                        </InputGroup>
+                        
+                      <Row >
+                        <Col >
+                        <input type="submit" color="primary"  className="px-6 lg btn btn-primary" value ="Login"/>
+                        </Col>
+                      </Row>
+                    </Form>
+                  </CardBody>
+                </Card>
+                <Card className="text-white bg-primary py-5 d-md-down-none" style={{ width: 44 + '%' }}>
+                  <CardBody className="text-center">
+                    <div>
+                      <h2>Cinema in a box</h2>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
+                        labore et dolore magna aliqua.</p>
+                      
+                    </div>
+                  </CardBody>
+                </Card>
+              </CardGroup>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }

@@ -9952,5 +9952,12 @@ html:not([dir="rtl"]) .sidebar {
 li.nav-item.active {
   background-color: #20a8d8; }
 
+body[class='aside-menu-hidden'] .app-footer {
+  margin-left: -10px !important; }
+
+.app-registration {
+  min-height: 85.5vh !important;
+  height: 85.5vh !important; }
+
 html body .app.flex-row.align-items-center {
   height: 100vh; }

@@ -16,7 +16,6 @@ import {
 } from '@coreui/react';
 // sidebar nav config
 import navigation from './../../navigation/nav';
-
 // routes config
 import routes from '../../routes';
 import DefaultAside from './DefaultAside';
@@ -40,7 +39,6 @@ class DefaultLayout extends Component {
           </AppSidebar>
           <main className="main">
             <Container fluid>
-            
               <Switch>
                 {routes.map((route, idx) => {
                   console.log(route.component);

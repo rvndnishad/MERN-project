@@ -1,9 +1,8 @@
 import React from 'react';
 import Loadable from 'react-loadable'
-import { connect } from 'react-redux';
 
 function Loading() {
-  return <div>Loading...</div>;
+  return <div className = "header">Loading...</div>;
 }
 
 const ExcelUpload = Loadable({
@@ -12,7 +11,7 @@ const ExcelUpload = Loadable({
 });
 
 const Register = Loadable({
-  loader: () => import('./components/auth/Register'),
+  loader: () => import('../src/components/auth/Register'),
   loading: Loading,
 });
 
@@ -58,9 +57,9 @@ const routes = [
   { path: '/dashboard/ad-impact', name: 'Ad Impact', component: AdImpact },
   { path: '/dashboard/bingo', name: 'Bingo', component: Bingo },
   { path: '/dashboard/upcoming-movie-release', name: 'Upcoming Movie Release', component: UpcommingMovieRelease },
-  { path: '/excel-upload', exact: true, name: 'Excel Upload', component: ExcelUpload },
-  { path: '/register', exact: true, name: 'Register', component: Register },
-  { path: '/users', exact: true, name: 'Users', component: users },
+  { path: '/excel-upload', name: 'Excel Upload', component: ExcelUpload },
+  { path: '/register', name: 'Register', component: Register },
+  { path: '/users', name: 'Users', component: users },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard }
 ];
 

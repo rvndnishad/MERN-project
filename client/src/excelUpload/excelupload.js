@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-
+import DropDownMenu from 'material-ui/DropDownMenu';
+import MenuItem from 'material-ui/MenuItem';
 
 class Excelupload extends Component {
     constructor(props) {
@@ -65,7 +66,7 @@ class Excelupload extends Component {
                 <div className="header">Upload excel file here</div>
                 <div className="excelImportBtn">
                     <label htmlFor="file-upload" className="custom-file-upload">
-                        <i className="fa fa-cloud-upload"></i> Upload Excel
+                    <i class="icon-cloud-upload"></i> <span>Upload Excel</span>
                     </label>
                     <input id="file-upload"  type="file"/>
                 </div>
@@ -100,7 +101,7 @@ class Excelupload extends Component {
                     <FormGroup>
                         <Label for="exampleSelectMulti">Database Type</Label>
                         <Input type="select" name="database-type" id="databaseTypeSelect">
-                            <option value="0">Please select the year</option>
+                            <option value="0">Please select the Database Type</option>
                             <option value="1">Buzz Index</option>
                             <option value="2">CAM</option>
                             <option value="3">Ad Impact</option>

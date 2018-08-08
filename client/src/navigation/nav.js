@@ -17,17 +17,17 @@ export default {
       {
         name: 'CAM',
         url: '/dashboard/cam',
-        icon: 'icon-cursor'
+        icon: 'icon-camera'
       },
       {
         name: 'Ad Impact',
         url: '/dashboard/ad-impact',
-        icon: 'icon-calculator'
+        icon: 'icon-screen-desktop'
       },
       {
         name: 'BINGO',
         url: '/dashboard/bingo',
-        icon: 'icon-bell'
+        icon: 'icon-pie-chart'
       },
       {
         name: 'UPCOMING MOVIE RELEASE',

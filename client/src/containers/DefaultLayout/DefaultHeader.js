@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
 import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem } from 'reactstrap';
 
-import { BrowserRouter, Route, Link, Switch, NavLink , Redirect} from "react-router-dom";
+import { BrowserRouter, Router, Route, Link, Switch, NavLink , Redirect} from "react-router-dom";
 
 import PropTypes from 'prop-types';
 import { logoutUser } from './../../actions/authActions';
-import { connect } from 'react-redux';
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../asset/img/brand/logo.svg';
 import sygnet from '../../asset/img/brand/sygnet.svg';
+
+import { connect } from 'react-redux';
+
 
 const propTypes = {
   children: PropTypes.node,
 };
 
 const defaultProps = {};
+
 
 class DefaultHeader extends Component {
   
@@ -38,20 +41,21 @@ class DefaultHeader extends Component {
         />
         <AppSidebarToggler className="d-md-down-none left-toggler" display="lg" />
 
-        <BrowserRouter>
           <Nav className="d-md-down-none" navbar>         
             <NavItem className="px-3">
-              <a href="/excel-upload">Upload Excel</a>
+            <BrowserRouter basename="/"/>
+              <Link to="/excel-upload"  activestyle={{ fontWeight: 'bold', color: 'red'}}>
+                <i className="fa fa-file-excel"></i> Upload Excel</Link>
             </NavItem>
             <NavItem className="px-3">
-              <a href="/register">Register New User</a>
+            <BrowserRouter basename="/"/>
+              <Link to="/register"> <i className="icon-user"></i> Register New User</Link>
             </NavItem>
             <NavItem className="px-3">
-              <a href="/users">User List</a>
+            <BrowserRouter basename="/"/>
+              <Link to="/users"> <i className="icon-list"></i> User List</Link>
             </NavItem>
-          </Nav>
-        </BrowserRouter>
-        
+          </Nav>        
 
         <Nav className="ml-auto" navbar>         
           <AppHeaderDropdown direction="down">

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Card, CardBody, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import classnames from 'classnames';
@@ -20,11 +21,11 @@ class Register extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentDidMount() {
-    if (this.props.auth.isAuthenticated) {
-      this.props.history.push('/dashboard');
-    }
-  }
+  // componentDidMount() {
+  //   if (this.props.auth.isAuthenticated) {
+  //     this.props.history.push('/dashboard');
+  //   }
+  // }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -53,86 +54,112 @@ class Register extends Component {
     const { errors } = this.state;
 
     return (
-      <div className="register">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-6 m-auto">
-              <h1 className="display-6 text-center">Sign Up</h1>
-              <p className="lead text-center">
-                Create your GroupM account
-              </p>
-              <form noValidate onSubmit={this.onSubmit} autocomplete="off">
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className={classnames('form-control form-control-md', {
-                      'is-invalid': errors.name
-                    })}
-                    placeholder="Name"
-                    name="name"
-                    autocomplete="off"
-                    value={this.state.name}
-                    onChange={this.onChange}
-                  />
-                  {errors.name && (
-                    <div className="invalid-feedback">{errors.name}</div>
-                  )}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="email"
-                    className={classnames('form-control form-control-md', {
-                      'is-invalid': errors.email
-                    })}
-                    autocomplete="off"
-                    placeholder="Email Address"
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                  />
-                  {errors.email && (
-                    <div className="invalid-feedback">{errors.email}</div>
-                  )}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    autocomplete="off"
-                    className={classnames('form-control form-control-md', {
-                      'is-invalid': errors.password
-                    })}
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                  {errors.password && (
-                    <div className="invalid-feedback">{errors.password}</div>
-                  )}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    autocomplete="off"
-                    className={classnames('form-control form-control-md', {
-                      'is-invalid': errors.password2
-                    })}
-                    placeholder="Confirm Password"
-                    name="password2"
-                    value={this.state.password2}
-                    onChange={this.onChange}
-                  />
-                  {errors.password2 && (
-                    <div className="invalid-feedback">{errors.password2}</div>
-                  )}
-                </div>
-                <input type="submit" className="btn btn-info btn-block mt-2" />
-              </form>
-            </div>
-          </div>
+
+        <div className="app flex-row align-items-center app-registration">
+          <Container>
+            <Row className="justify-content-center">
+              <Col md="6">
+                <Card className="mx-4">
+                  <CardBody className="p-4">
+                    <Form noValidate onSubmit={this.onSubmit} autoComplete="off">
+                      <h1>Register A New User</h1>
+                      <p className="text-muted">Create account</p>
+                      <InputGroup className="mb-3">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="icon-user"></i>
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input 
+                          type="text" 
+                          placeholder="Username"
+                          autoComplete="false"
+                          className={classnames('form-control form-control-md', {
+                            'is-invalid': errors.name
+                          })}
+                          placeholder="Name"
+                          name="name"
+                          autocomplete="off"
+                          value={this.state.name}
+                          onChange={this.onChange}
+                        />
+                        {errors.name && (
+                          <div className="invalid-feedback">{errors.name}</div>
+                        )}
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>@</InputGroupText>
+                        </InputGroupAddon>
+                        <Input 
+                          type="text" 
+                          placeholder="Email" 
+                          className={classnames('form-control form-control-md', {
+                            'is-invalid': errors.email
+                          })}
+                          autocomplete="off"
+                          placeholder="Email Address"
+                          name="email"
+                          value={this.state.email}
+                          onChange={this.onChange}
+                        />
+                        {errors.email && (
+                          <div className="invalid-feedback">{errors.email}</div>
+                        )}
+                      </InputGroup>
+                      <InputGroup className="mb-3">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="icon-lock"></i>
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input 
+                          type="password" 
+                          placeholder="Password" 
+                          autocomplete="off"
+                          className={classnames('form-control form-control-md', {
+                            'is-invalid': errors.password
+                          })}
+                          placeholder="Password"
+                          name="password"
+                          value={this.state.password}
+                          onChange={this.onChange}
+                        />
+                        {errors.password && (
+                          <div className="invalid-feedback">{errors.password}</div>
+                        )}
+                      </InputGroup>
+                      <InputGroup className="mb-4">
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="icon-lock"></i>
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input 
+                          type="password" 
+                          placeholder="Repeat password" 
+                          autocomplete="off"
+                          className={classnames('form-control form-control-md', {
+                            'is-invalid': errors.password2
+                          })}
+                          placeholder="Confirm Password"
+                          name="password2"
+                          value={this.state.password2}
+                          onChange={this.onChange}
+                        />
+                        {errors.password2 && (
+                          <div className="invalid-feedback">{errors.password2}</div>
+                        )}
+                      </InputGroup>
+                      <Input  type="submit" color="success"  className="px-6 lg btn btn-success" block value="Create Account" />
+                    </Form>
+                  </CardBody>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
         </div>
-      </div>
-    );
+      );
   }
 }
 

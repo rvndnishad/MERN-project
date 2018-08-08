@@ -1,4 +1,5 @@
 @charset "UTF-8";
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 /*!
  * CoreUI - Open Source Dashboard UI Kit
  * @version v2.0.4
@@ -9869,8 +9870,11 @@ body {
 .app-header .navbar-nav .dropdown-menu-right {
   right: auto; }
 
+html, body {
+  font-family: 'Roboto', sans-serif; }
+
 .sidebar-fixed .sidebar, .sidebar .nav, .sidebar .sidebar-nav {
-  width: 280px; }
+  width: 240px; }
 
 .breadcrumb {
   padding: 0.75rem 6rem; }
@@ -9879,7 +9883,7 @@ body {
   padding: 0 6rem; }
 
 html:not([dir="rtl"]) .sidebar {
-  margin-left: -280px; }
+  margin-left: -240px; }
 
 .input-group-text {
   border: 0px solid #e4e7ea; }
@@ -9926,6 +9930,27 @@ html:not([dir="rtl"]) .sidebar {
 
 .nav .nav-dropdown-toggle, .nav .nav-dropdown-items {
   border-bottom: 1px solid #20a8d8 !important; }
+
+.custom-file-upload {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 0 0.2rem rgba(32, 168, 216, 0.25); }
+
+.navbar-toggler {
+  padding-left: 52px;
+  outline: none; }
+
+.left-toggler {
+  min-width: 140px !important;
+  outline: none !important; }
+
+@media (max-width: 991.98px) {
+  .left-toggler {
+    min-width: 50px !important;
+    outline: none !important; } }
+
+li.nav-item.active {
+  background-color: #20a8d8; }
 
 html body .app.flex-row.align-items-center {
   height: 100vh; }

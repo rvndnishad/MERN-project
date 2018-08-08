@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
-import { Redirect, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { Container } from 'reactstrap';
+import { connect } from 'react-redux';
 
 import {
   AppAside,
   AppFooter,
   AppHeader,
   AppSidebar,
-  AppSidebarFooter,
+  AppSidebarFooter, 
   AppSidebarForm,
   AppSidebarHeader,
   AppSidebarMinimizer,
-  AppSidebarNav,
+  AppSidebarNav
 } from '@coreui/react';
 // sidebar nav config
-import navigation from '../../../navigation/nav';
-
-import Excelupload from '../../../excelUpload/excelupload';
+import navigation from './../../navigation/nav';
 
 // routes config
-import DefaultAside from './defaultAside';
-import DefaultFooter from './defaultFooter';
-import DefaultHeader from './defaultHeader';
+import routes from '../../routes';
+import DefaultAside from './DefaultAside';
+import DefaultFooter from './DefaultFooter';
+import DefaultHeader from './DefaultHeader';
 
 class DefaultLayout extends Component {
   render() {
     return (
       <div className="app">
         <AppHeader fixed>
-          <DefaultHeader />
+          <DefaultHeader/>
         </AppHeader>
         <div className="app-body">
           <AppSidebar fixed display="lg"> 
@@ -39,10 +39,17 @@ class DefaultLayout extends Component {
             <AppSidebarMinimizer />
           </AppSidebar>
           <main className="main">
-            {/* <AppBreadcrumb appRoutes={routes}/> */}
             <Container fluid>
+            
               <Switch>
-                <Excelupload/>
+                {routes.map((route, idx) => {
+                  console.log(route.component);
+                    return route.component ? (<Route key={idx} path={route.path} exact={route.exact} name={route.name} render={props => (
+                        <route.component {...props} />
+                      )} />)
+                      : (null);
+                  },
+                )}
                 <Redirect from="/" to="/dashboard" />
               </Switch>
             </Container>
@@ -59,4 +66,8 @@ class DefaultLayout extends Component {
   }
 }
 
-export default DefaultLayout;
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(DefaultLayout);

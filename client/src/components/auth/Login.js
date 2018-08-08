@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { loginUser } from '../../actions/authActions';
 import { Card, CardBody, CardGroup, Col, Container, Form, Input, InputGroup, InputGroupAddon, InputGroupText, Row } from 'reactstrap';
-import { log } from 'util';
-import { AppSwitch } from '@coreui/react'
+
 
 
 class Login extends Component {

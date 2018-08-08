@@ -9,13 +9,6 @@ import store from './store';
 
 import PrivateRoute from '../src/components/common/PrivateRoute';
 
-import Navbar from './components/layout/Navbar';
-import Footer from './components/layout/Footer';
-import Register from './components/auth/Register';
-import Login from './components/auth/Login';
-import Dashboard from './components/Dashboard/Dashboard';
-
-
 import './App.css';
 // Styles
 // CoreUI Icons Set
@@ -27,6 +20,10 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'simple-line-icons/css/simple-line-icons.css';
 // Import Main styles for this application
 import './scss/style.css'
+
+import { DefaultLayout }  from './containers';
+import Register from './components/auth/Register';
+import Login from './components/auth/Login';
 
 
 // Check for token
@@ -56,12 +53,14 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-            <Route exact path="/" component={Login} />
-              <Route exact path="/register" component={Register} />
-              <Route exact path="/login" component={Login} />
-              <Switch>
-                <PrivateRoute exact path="/dashboard" component={Dashboard} />
-              </Switch>
+          <Switch>
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/login" component={Login} />
+            <Switch>
+                <PrivateRoute path="/" component={DefaultLayout} />
+            </Switch>
+          </Switch>
             </div>
         </Router>
       </Provider>

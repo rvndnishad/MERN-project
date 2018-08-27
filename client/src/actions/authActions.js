@@ -3,12 +3,35 @@ import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
 
 import { GET_ERRORS, SET_CURRENT_USER } from './types';
+import { log } from 'util';
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
   axios
     .post('/api/users/register', userData)
     .then(res => history.push('/login'))
+    .catch(err =>
+      dispatch({
+        type: GET_ERRORS,
+        payload: err.response.data
+      })
+    );
+};
+
+
+export const uploadExcel = (excelData, history) => dispatch => {
+  const data = new FormData();
+  data.append('file', excelData);
+  const config = {
+      headers: {
+          'content-type': 'multipart/form-data'
+      }
+  }
+  console.log(excelData);
+  
+  axios
+    .post('/api/upload', data, config)
+    .then(res => { console.log(res.data); history.push('/dashboard/cam') })
     .catch(err =>
       dispatch({
         type: GET_ERRORS,

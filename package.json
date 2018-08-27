@@ -27,8 +27,7 @@
     "reactstrap": "^6.3.1",
     "validator": "^9.4.1",
     "xls-to-json-lc": "^0.3.4",
-    "xlsx": "^0.13.3",
-    "xlsx-to-json-lc": "^0.5.0"
+    "xlsx-to-json": "^0.3.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.3"

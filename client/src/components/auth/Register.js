@@ -79,7 +79,7 @@ class Register extends Component {
                           })}
                           placeholder="Name"
                           name="name"
-                          autocomplete="off"
+                          autoComplete="off"
                           value={this.state.name}
                           onChange={this.onChange}
                         />
@@ -97,7 +97,7 @@ class Register extends Component {
                           className={classnames('form-control form-control-md', {
                             'is-invalid': errors.email
                           })}
-                          autocomplete="off"
+                          autoComplete="off"
                           placeholder="Email Address"
                           name="email"
                           value={this.state.email}
@@ -116,7 +116,7 @@ class Register extends Component {
                         <Input 
                           type="password" 
                           placeholder="Password" 
-                          autocomplete="off"
+                          autoComplete="off"
                           className={classnames('form-control form-control-md', {
                             'is-invalid': errors.password
                           })}
@@ -138,7 +138,7 @@ class Register extends Component {
                         <Input 
                           type="password" 
                           placeholder="Repeat password" 
-                          autocomplete="off"
+                          autoComplete="off"
                           className={classnames('form-control form-control-md', {
                             'is-invalid': errors.password2
                           })}
@@ -151,7 +151,7 @@ class Register extends Component {
                           <div className="invalid-feedback">{errors.password2}</div>
                         )}
                       </InputGroup>
-                      <Input  type="submit" color="success"  className="px-6 lg btn btn-success" block value="Create Account" />
+                      <Input  type="submit" color="success"  className="px-6 lg btn btn-success"  value="Create Account" />
                     </Form>
                   </CardBody>
                 </Card>

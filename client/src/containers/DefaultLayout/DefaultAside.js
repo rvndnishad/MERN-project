@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import { Nav, NavItem, NavLink } from 'reactstrap';
+import { Nav, NavItem, NavLink, Button, TabContent,TabPane } from 'reactstrap';
 import PropTypes from 'prop-types';
+
+import CamFilter from '../../CinemaInABox/CAM/CamFilter';
+
 
 const propTypes = {
   children: PropTypes.node,
@@ -38,10 +41,13 @@ class DefaultAside extends Component {
           <NavItem>
             <NavLink>
               <i className="icon-settings"></i>  <span>Filter </span>
+              <Button color="primary" className="reset-button" size="sm" >Reset Filter</Button>
             </NavLink>
           </NavItem>
         </Nav>
-        
+        <TabContent activeTab={this.state.activeTab}>
+            <CamFilter />
+        </TabContent>
       </React.Fragment>
     );
   }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchCamlist } from "../../actions/camact";
-import data from '../../data/temp';
+import getCamList from './camData';
 import _ from 'lodash';
 import removeEmptyObject from '../../validation/removeEmptyObject';
 
@@ -18,49 +18,84 @@ class Cam extends Component {
         }
       ]
     }
+    this.getTopCategory = this.getTopCategory.bind(this);
   }
 
-  componentDidMount() {
-    this.props.dispatch(fetchCamlist());
-  }
+  // componentDidMount() {
+  //   this.props.dispatch(fetchCamlist());
+  // }
   onClick = (e) => {
     e.preventDefault();
     this.props.history.push('cat')
+  };
+
+  getTotalSpots() {
+    const camData = getCamList();
+    let camSpots = 0;
+     _.map(camData, (item, index)=>{ 
+        _.map(item, (rowData)=> { if(rowData.length !== 0) {camSpots += rowData.length }  } );
+      });
+    return camSpots;
+}
+  
+  getBrand() {
+    const camData = getCamList();
+    const camBrand = [];
+     _.map(camData, (item, index)=>{ 
+        _.map(item, (rowData)=> { if(rowData.length !== 0) {  camBrand.push(rowData[0].brandName) }} );
+      });
+    return _.uniq(camBrand);
+}
+
+  getProduct() {
+    const camData = getCamList();
+    const camProduct = [];
+     _.map(camData, (item, index)=>{ 
+        _.map(item, (rowData)=> { if(rowData.length !== 0) {  camProduct.push(rowData[0].productname) }} );
+      });
+    return _.uniq(camProduct);
+}
+
+  getCategory() {
+      const camData = getCamList();
+      
+      const camCategory = [];
+      _.map(camData, (item, index)=>{ 
+          _.map(item, (rowData)=> { if(rowData.length !== 0) { camCategory.push(rowData[0].category) }  } );
+        });
+      return _.uniq(camCategory);
   }
 
   getTopCategory() {
-    console.log(data);
-    const CamData = data.data.map((val, index)=> {
-        Object.keys(val).map(function(key) {
-          console.log(val[key])
-        });
-    });
+    const camData = getCamList();
+    const camCategory = [];
+    _.map(camData, (item, index)=>{ 
+        _.map(item, (rowData)=> { if(rowData.length !== 0) { camCategory.push({category :rowData[0].category} ) }} );
+      });
 
-      console.log(CamData);
-
-      const sortedCAM = _.sortBy(CamData, "category");
-      const uniqueCategory = _.uniqBy(sortedCAM, "category");
-      const countCategory = _.countBy(sortedCAM, "category");
       
-      const temp = [];
-      for (var item in countCategory) {
-        if (countCategory.hasOwnProperty(item)) {
-          temp.push({category: item, count: countCategory[item]});
-          //console.log(item + " -> " + countCategory[item]);
-        }
-      }
-      const sortedUniqueCam = _.orderBy(temp, "count", ["desc", "asc"]);
-      var count = 10;
-      const finalCamData = [];
-      for(var i=0; i<sortedUniqueCam.length; i++) {
-        if(i < count) {
-          finalCamData.push(sortedUniqueCam[i])
-        }
-      }
+      console.log(camCategory);
+      
+      var categoryObject = _.countBy(camCategory, "category");
+      //console.log(categoryObject);
 
-      //console.log(finalCamData);
-    
+      var result = _.reduceRight(_.invert(_.invert(categoryObject)), function(current, val, key){    
+          current[key] = parseInt(val);
+          return current;
+      },{});
+
+      let count=1;
+      for (var key in result) {
+        if (result.hasOwnProperty(key)) {
+            if (count> 10){
+              delete result[key];
+            }
+            count++;
+        }
+    }
+      return result;
   }
+  
 
   render() {
     const { error, loading, camlist } = this.props;
@@ -72,10 +107,7 @@ class Cam extends Component {
         "cat": "bb"
       }
     ]
-    //console.log(camlist)
-    
-    this.getTopCategory()
-    
+    console.log(this.getTopCategory());
     return (
       <div className="clearfix">
         <h3 className="page-title">
@@ -89,7 +121,7 @@ class Cam extends Component {
                   <i className="fa fa-comments" />
                 </div>
                 <div className="details">
-                  <div className="number">1349</div>
+                  <div className="number">{this.getCategory().length}</div>
                   <div className="desc">Total Categories</div>
                 </div>
                 <a className="more" href="javascript:;">
@@ -103,7 +135,7 @@ class Cam extends Component {
                   <i className="fa fa-bar-chart-o" />
                 </div>
                 <div className="details">
-                  <div className="number">1250</div>
+                  <div className="number">{this.getProduct().length}</div>
                   <div className="desc">Total Products</div>
                 </div>
                 <a className="more" href="javascript:;">
@@ -117,7 +149,7 @@ class Cam extends Component {
                   <i className="fa fa-shopping-cart" />
                 </div>
                 <div className="details">
-                  <div className="number">5490</div>
+                  <div className="number">{this.getBrand().length}</div>
                   <div className="desc">Total Brands</div>
                 </div>
                 <a className="more" href="javascript:;">
@@ -131,7 +163,7 @@ class Cam extends Component {
                   <i className="fa fa-globe" />
                 </div>
                 <div className="details">
-                  <div className="number">8900</div>
+                  <div className="number">{this.getTotalSpots()}</div>
                   <div className="desc">Total Spots</div>
                 </div>
                 <a className="more" href="javascript:;">
@@ -156,8 +188,20 @@ class Cam extends Component {
                   <table className="table clickable">
                     <tbody>
                     {
-                      data[0]
+                      Object.entries(this.getTopCategory()).map(([key, value], index) => {
+                        const percentageValue = Math.round((value/200)*100);
+                        return (
+                          <tr key={index}>
+                            <td stule="w">
+                              {key}
+                            </td>
+                            <td className="width100">{percentageValue}%</td>
+                          </tr>
+                        )
+                      })
                     }
+
+                    {/*}
                       <tr onClick={this.onClick}>
                         <td>
                           Clothing
@@ -218,6 +262,7 @@ class Cam extends Component {
                         </td>
                         <td className="width100">60%</td>
                       </tr>
+                      */}
                     </tbody>
                   </table>
                 </div>

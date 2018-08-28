@@ -112,7 +112,6 @@ class Excelupload extends Component {
 
   render() {
     const { errors } = this.state;
-    console.log(errors);
     return ( 
       <div className = "container-excelupload" >
       <div className = "header" > Upload excel file here </div> 
@@ -124,6 +123,9 @@ class Excelupload extends Component {
         </label>
         </FormGroup>
         <FormGroup>{errors.file && ( <div>{errors.file}</div> )}</FormGroup>
+        <FormGroup>{errors.xls && ( <div>{errors.xls}</div> )}</FormGroup>
+        <FormGroup>{errors.fileType && ( <div>{errors.fileType}</div> )}</FormGroup>
+        <FormGroup>{errors.fileCorupt && ( <div>{errors.fileCorupt}</div> )}</FormGroup>
         <FormGroup>
         <Input type = "file" name = "file" id = "file-upload" onClick={this.onClick}  onChange={this.onChange}  
         className={classnames('form-control form-control-md', {
@@ -191,6 +193,4 @@ const mapStateToProps = state => ({
   errors: state.errors
 });
 
-export default connect(mapStateToProps, {
-  uploadExcel
-})(withRouter(Excelupload));
+export default connect(mapStateToProps, { uploadExcel })(withRouter(Excelupload));

@@ -2,79 +2,129 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchCamlist } from "../../actions/camact";
 import getCamList from './camData';
+import data from '../../data/temp';
 import _ from 'lodash';
 import removeEmptyObject from '../../validation/removeEmptyObject';
 
 class Cam extends Component {
 
-  constructor(){
-    super();
-
+  constructor(props){
+    super(props);
     this.state = {
-      topBrand: [
-        {
-          name: 'Clothing',
-          value: 96 
-        }
-      ]
+      tcamlists: data.data,
+      totalcat: 0,
+      totalproduct: 0,
+      totalbrand: 0,
+      totalspot: 0,
+      rowdt:[],
+      selectedMonth:'',
+      selectedYear:''
     }
     this.getTopCategory = this.getTopCategory.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.props.dispatch(fetchCamlist());
-  // }
+componentDidMount() {
+  this.gttotalspots()
+  var t = this;
+  document.querySelector('.filter-submit').addEventListener("click", function(e) {
+    t.getfinaldata()
+  })
+  
+}
+
   onClick = (e) => {
     e.preventDefault();
     this.props.history.push('cat')
   };
-
-  getTotalSpots() {
-    const camData = getCamList();
+  getfinaldata(){
+      const slmonth = document.querySelector('.filter-month').value;
+      const slyear = document.querySelector('.filter-year').value;
+      const slzone = document.querySelector('.filter-Zone').value;
+      const slcity = document.querySelector('.filter-City').value;
+      const slproduct = document.querySelector('.filter-product').value;
+      const sladpos = document.querySelector('.filter-adPosition').value;
+      const slduration = document.querySelector('.filter-adDuration').value;
+      var mnselected = []
+      const selectedel = {}
+      if(slmonth!=''){
+        selectedel.month = slmonth
+        this.setState({selectedMonth: slmonth})
+      }else{
+        this.setState({selectedMonth: ''})
+      }
+      if(slyear!=''){
+        selectedel.year = slyear
+        this.setState({selectedYear: slyear})
+      }else{
+        this.setState({selectedYear: ''})
+      }
+      if(slzone!=''){
+        selectedel.zone = slzone
+      }
+      if(slcity!=''){
+        selectedel.city = slcity
+      }
+      var filterddata = _.filter(data.data, selectedel);
+      
+      //this.setState({ tcamlists: mnselected })
+      this.setState({ tcamlists: filterddata })
+  }
+  gttotalspots() {
+    const camData = this.state.tcamlists;
     let camSpots = 0;
      _.map(camData, (item, index)=>{ 
         _.map(item, (rowData)=> { if(rowData.length !== 0) {camSpots += rowData.length }  } );
+      });
+    this.setState({ totalspot: camSpots })
+    //this.state.totalspot = camSpots
+}
+  
+  getTotalSpots() {
+    const camData = this.state.tcamlists;
+    let camSpots = 0;
+     _.map(camData, (item, index)=>{
+        _.map(item, (rowData)=> { if(rowData.length !== 0 && rowData[0].brandName !== '' && rowData[0].brandName !== undefined) {camSpots += rowData.length }  } );
       });
     return camSpots;
 }
   
   getBrand() {
-    const camData = getCamList();
+    const camData = this.state.tcamlists;
     const camBrand = [];
      _.map(camData, (item, index)=>{ 
-        _.map(item, (rowData)=> { if(rowData.length !== 0) {  camBrand.push(rowData[0].brandName) }} );
+        _.map(item, (rowData)=> { if(rowData.length !== 0 && rowData[0].brandName !== '' && rowData[0].brandName !== undefined) {  camBrand.push(rowData[0].brandName) }} );
       });
     return _.uniq(camBrand);
 }
 
   getProduct() {
-    const camData = getCamList();
+    const camData = this.state.tcamlists;
     const camProduct = [];
      _.map(camData, (item, index)=>{ 
-        _.map(item, (rowData)=> { if(rowData.length !== 0) {  camProduct.push(rowData[0].productname) }} );
+        _.map(item, (rowData)=> { if(rowData.length !== 0 && rowData[0].brandName !== '' && rowData[0].brandName !== undefined) {  camProduct.push(rowData[0].productname) }} );
       });
     return _.uniq(camProduct);
 }
 
   getCategory() {
-      const camData = getCamList();
+      const camData = this.state.tcamlists;
       
       const camCategory = [];
       _.map(camData, (item, index)=>{ 
-          _.map(item, (rowData)=> { if(rowData.length !== 0) { camCategory.push(rowData[0].category) }  } );
+          _.map(item, (rowData)=> { if(rowData.length !== 0 && rowData[0].brandName !== '' && rowData[0].brandName !== undefined) { camCategory.push(rowData[0].category) }  } );
         });
       return _.uniq(camCategory);
   }
 
   getTopCategory() {
-    const camData = getCamList();
+    const camData = this.state.tcamlists;
     const camCategory = [];
     _.map(camData, (item, index)=>{ 
         _.map(item, (rowData)=> { if(rowData.length !== 0) { camCategory.push({category :rowData[0].category} ) }} );
       });
 
       
-      console.log(camCategory);
+      //console.log(camCategory);
       
       var categoryObject = _.countBy(camCategory, "category");
       //console.log(categoryObject);
@@ -95,19 +145,67 @@ class Cam extends Component {
     }
       return result;
   }
-  
+  getTopbrand() {
+    const camData = this.state.tcamlists;
+    const camCategory = [];
+    _.map(camData, (item, index)=>{ 
+        _.map(item, (rowData)=> { if(rowData.length !== 0) { camCategory.push({brandName :rowData[0].brandName} ) }} );
+      });
 
+      
+      //console.log(camCategory);
+      
+      var categoryObject = _.countBy(camCategory, "brandName");
+      //console.log(categoryObject);
+
+      var result = _.reduceRight(_.invert(_.invert(categoryObject)), function(current, val, key){    
+          current[key] = parseInt(val);
+          return current;
+      },{});
+
+      let count=1;
+      for (var key in result) {
+        if (result.hasOwnProperty(key)) {
+            if (count> 10){
+              delete result[key];
+            }
+            count++;
+        }
+    }
+      return result;
+  }
+  getTopproduct() {
+    const camData = this.state.tcamlists;
+    const camCategory = [];
+    _.map(camData, (item, index)=>{ 
+        _.map(item, (rowData)=> { if(rowData.length !== 0) { camCategory.push({productname :rowData[0].productname} ) }} );
+      });
+
+      
+      //console.log(camCategory);
+      
+      var categoryObject = _.countBy(camCategory, "productname");
+      //console.log(categoryObject);
+
+      var result = _.reduceRight(_.invert(_.invert(categoryObject)), function(current, val, key){    
+          current[key] = parseInt(val);
+          return current;
+      },{});
+
+      let count=1;
+      for (var key in result) {
+        if (result.hasOwnProperty(key)) {
+            if (count> 10){
+              delete result[key];
+            }
+            count++;
+        }
+    }
+      return result;
+  }
   render() {
     const { error, loading, camlist } = this.props;
-    var camlistst = [
-      {
-        "cat": "aa"
-      },
-      {
-        "cat": "bb"
-      }
-    ]
-    console.log(this.getTopCategory());
+    console.log( this.getBrand())
     return (
       <div className="clearfix">
         <h3 className="page-title">
@@ -181,7 +279,7 @@ class Cam extends Component {
                     <span className="caption-subject font-green-sharp bold uppercase">
                       Top 10 Category
                     </span>
-                    <span className="caption-helper">July, 2018</span>
+                    <span className="caption-helper">{this.state.selectedMonth}, {this.state.selectedYear}</span>
                   </div>
                 </div>
                 <div className="portlet-body">
@@ -190,79 +288,18 @@ class Cam extends Component {
                     {
                       Object.entries(this.getTopCategory()).map(([key, value], index) => {
                         const percentageValue = Math.round((value/200)*100);
-                        return (
-                          <tr key={index}>
-                            <td stule="w">
-                              {key}
-                            </td>
-                            <td className="width100">{percentageValue}%</td>
-                          </tr>
-                        )
+                        if (key !== 'undefined' && key !==''){
+                          return (
+                            <tr key={index}>
+                              <td stule="w">
+                                {key}
+                              </td>
+                              <td className="width100">{percentageValue}%</td>
+                            </tr>
+                          )
+                        }
                       })
                     }
-
-                    {/*}
-                      <tr onClick={this.onClick}>
-                        <td>
-                          Clothing
-                        </td>
-                        <td className="width100">96%</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Bankingand Finance
-                        </td>
-                        <td className="width100">90%</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Electrical Equipments
-                        </td>
-                        <td className="width100">85%</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Entertainment
-                        </td>
-                        <td className="width100">82%</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Footwear
-                        </td>
-                        <td className="width100">75%</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Real Estate
-                        </td>
-                        <td className="width100">70%</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Social Ad
-                        </td>
-                        <td className="width100">69%</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Food and Beverages
-                        </td>
-                        <td className="width100">65%</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Consumer Durables
-                        </td>
-                        <td className="width100">62%</td>
-                      </tr>
-                      <tr>
-                        <td>
-                          Accessories
-                        </td>
-                        <td className="width100">60%</td>
-                      </tr>
-                      */}
                     </tbody>
                   </table>
                 </div>
@@ -276,52 +313,27 @@ class Cam extends Component {
                     <span className="caption-subject font-blue-steel bold uppercase">
                       Top 10 Brands
                     </span>
-                    <span className="caption-helper">July, 2018</span>
+                    <span className="caption-helper">{this.state.selectedMonth}, {this.state.selectedYear}</span>
                   </div>
                 </div>
                 <div className="portlet-body">
                   <table className="table">
                     <tbody>
-                      <tr>
-                        <td>AIRFORCE</td>
-                        <td className="width100">99%</td>
-                      </tr>
-                      <tr>
-                        <td>YOGA</td>
-                        <td className="width100">95%</td>
-                      </tr>
-                      <tr>
-                        <td>METRO</td>
-                        <td className="width100">90%</td>
-                      </tr>
-                      <tr>
-                        <td>ROAD SAFETY AWARENESS</td>
-                        <td className="width100">88%</td>
-                      </tr>
-                      <tr>
-                        <td>EVEREST</td>
-                        <td className="width100">85%</td>
-                      </tr>
-                      <tr>
-                        <td>SAVE WATER</td>
-                        <td className="width100">80%</td>
-                      </tr>
-                      <tr>
-                        <td>HONDA AMAZE</td>
-                        <td className="width100">89%</td>
-                      </tr>
-                      <tr>
-                        <td>FASHION BIG BAZAR</td>
-                        <td className="width100">88%</td>
-                      </tr>
-                      <tr>
-                        <td>GOWARDHAN</td>
-                        <td className="width100">85%</td>
-                      </tr>
-                      <tr>
-                        <td>VIJAY SALES</td>
-                        <td className="width100">80%</td>
-                      </tr>
+                    {
+                      Object.entries(this.getTopbrand()).map(([key, value], index) => {
+                          const percentageValue = Math.round((value/200)*100);
+                          if (key !== 'undefined' && key !==''){
+                            return (
+                              <tr key={index}>
+                                <td stule="w">
+                                  {key}
+                                </td>
+                                <td className="width100">{percentageValue}%</td>
+                              </tr>
+                            )
+                          }
+                        })
+                      }
                     </tbody>
                   </table>
                 </div>
@@ -335,52 +347,27 @@ class Cam extends Component {
                     <span className="caption-subject font-red-sunglo bold uppercase">
                       Top 10 Products
                     </span>
-                    <span className="caption-helper">July, 2018</span>
+                    <span className="caption-helper">{this.state.selectedMonth}, {this.state.selectedYear}</span>
                   </div>
                 </div>
                 <div className="portlet-body">
                   <table className="table">
                     <tbody>
-                      <tr>
-                        <td>HOSPITAL</td>
-                        <td className="width100">99%</td>
-                      </tr>
-                      <tr>
-                        <td>FOOTWEAR</td>
-                        <td className="width100">96%</td>
-                      </tr>
-                      <tr>
-                        <td>MASALA</td>
-                        <td className="width100">90%</td>
-                      </tr>
-                      <tr>
-                        <td>INNER WEAR</td>
-                        <td className="width100">88%</td>
-                      </tr>
-                      <tr>
-                        <td>FOUR WHEELER</td>
-                        <td className="width100">85%</td>
-                      </tr>
-                      <tr>
-                        <td>GARMENTS</td>
-                        <td className="width100">81%</td>
-                      </tr>
-                      <tr>
-                        <td>GHEE</td>
-                        <td className="width100">80%</td>
-                      </tr>
-                      <tr>
-                        <td>EXHIBITION</td>
-                        <td className="width100">75%</td>
-                      </tr>
-                      <tr>
-                        <td>JEWELRIES</td>
-                        <td className="width100">74%</td>
-                      </tr>
-                      <tr>
-                        <td>SOFTDRINK</td>
-                        <td className="width100">70%</td>
-                      </tr>
+                    {
+                      Object.entries(this.getTopproduct()).map(([key, value], index) => {
+                          const percentageValue = Math.round((value/200)*100);
+                          if (key !== 'undefined' && key !==''){
+                            return (
+                              <tr key={index}>
+                                <td stule="w">
+                                  {key}
+                                </td>
+                                <td className="width100">{percentageValue}%</td>
+                              </tr>
+                            )
+                          }
+                        })
+                      }
                     </tbody>
                   </table>
                 </div>

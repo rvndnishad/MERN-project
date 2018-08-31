@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Input, FormGroup, Label, Button } from 'reactstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import data from '../../data/temp';
+import _ from 'lodash';
 
 class CamFilter extends Component {
   constructor(props){
@@ -14,104 +16,11 @@ class CamFilter extends Component {
       product: '',
       adPosition: '',
       duration: '',
-      optionsMonth: [{
-        value: 'Option0',
-        label: 'All Months'
-      }, {
-        value: 'Month1',
-        label: 'July'
-      }, {
-        value: 'Month2',
-        label: 'August'
-      }],
-      optionYear: [
-        {
-          value:"Option0",
-          label: "All Year"
-        },
-        {
-          value: "Option1",
-          label: "2015"
-        },
-        {
-          value: "Option2",
-          label: "2016"
-        },
-        {
-          value: "Option3",
-          label: "2017"
-        },
-        {
-          value: "Option4",
-          label: "2018"
-        }
-      ],
-      optionZone: [
-        {
-          value:"Option0",
-          label: "All Zone"
-        },
-        {
-          value: "Option1",
-          label: "East"
-        },
-        {
-          value: "Option2",
-          label: "West"
-        },
-        {
-          value: "Option3",
-          label: "North"
-        },
-        {
-          value: "Option4",
-          label: "South"
-        }
-      ],
-      optionCity: [
-        {
-          value:"Option0",
-          label: "All City"
-        },
-        {
-          value: "Option1",
-          label: "Mumbai"
-        },
-        {
-          value: "Option2",
-          label: "Delhi"
-        },
-        {
-          value: "Option3",
-          label: "Chennai"
-        },
-        {
-          value: "Option4",
-          label: "Bangalore"
-        }
-      ],
-      optionProduct: [
-        {
-          value:"Option0",
-          label: "All Products"
-        },
-        {
-          value: "Option1",
-          label: "dummy1"
-        },
-        {
-          value: "Option2",
-          label: "dummy2"
-        },
-        {
-          value: "Option3",
-          label: "dummy3"
-        },
-        {
-          value: "Option4",
-          label: "dummy4"
-        }
-      ],
+      optionsMonth: [],
+      optionYear: [],
+      optionZone: [],
+      optionCity: [],
+      optionProduct: [],
       optionAdPosition: [
         {
           value:"Option0",
@@ -148,12 +57,63 @@ class CamFilter extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
   }
-
+  componentDidMount() {
+    //this.getallmonth()
+  }
   componentWillReceiveProps(props){
     console.log("Component will receive props")
   }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+  }
+  getallmonth() {
+      const m = []
+      const mf = []
+      const y = []
+      const yf = []
+      const z = []
+      const zf = []
+      const c = []
+      const cf = [];
+      const totalproduct = []
+      const totalproductfinal = []
+      _.map(data.data, (item, index)=>{ 
+        _.map(item, (rowData)=> { if(rowData.length !== 0) { 
+           m.push(item.month)
+           y.push(item.year) 
+           z.push(item.zone)
+           c.push(item.city)
+          }
+        });
+        _.map(item.before, (bitem, bi)=>{ 
+          totalproduct.push(bitem.productname)
+        })
+        _.map(item.during, (ditem, di)=>{ 
+          totalproduct.push(ditem.productname)
+        })
+      });
+      
+      _.map(_.uniq(m), (itemm, i)=>{ 
+        mf.push({"value": itemm, "label": itemm})
+      });
+      _.map(_.uniq(y), (itemy, i)=>{ 
+        yf.push({"value": itemy, "label": itemy})
+      });
+      _.map(_.uniq(z), (itemz, i)=>{ 
+        zf.push({"value": itemz, "label": itemz})
+      });
+      _.map(_.uniq(c), (itemc, i)=>{ 
+        cf.push({"value": itemc, "label": itemc})
+      });
+      _.map(_.uniq(totalproduct), (itemd, i)=>{ 
+        totalproductfinal.push({"value": itemd, "label": itemd})
+      });
+      
+      this.state.optionProduct = _.uniq(totalproductfinal)
+      this.state.optionsMonth = mf
+      this.state.optionYear = yf
+      this.state.optionZone = zf
+      this.state.optionCity = cf
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -170,6 +130,7 @@ class CamFilter extends Component {
     console.log(payload)
   }
   render() {
+    this.getallmonth()
     return (
       <div className="filterCam-page">
         <div className="fiterCam">
@@ -177,7 +138,9 @@ class CamFilter extends Component {
                 <FormGroup>
                 <small><Label for="monthSelect" >Month</Label></small>
                 <small><Input type="select" value={this.state.month} name="month" onChange={this.onChange} className="filter-month">
+                  <option value="">Select Month</option>
                     {
+                      
                       this.state.optionsMonth.map(el => {
                         return <option key={el.value} label={el.label} value={el.value} />
                       })
@@ -188,6 +151,7 @@ class CamFilter extends Component {
                 <FormGroup>
                 <small><Label for="yearSelect" >Year</Label></small>
                   <Input type="select" value={this.state.year} name="year" onChange={this.onChange} className="filter-year">
+                  <option value="">Select Years</option>
                     {
                       this.state.optionYear.map(el => {
                         return <option key={el.value} label={el.label} value={el.value} />
@@ -198,6 +162,7 @@ class CamFilter extends Component {
                 <FormGroup>
                 <small><Label for="zoneSelect" >Zone</Label></small>
                   <Input type="select" value={this.state.zone} name="zone" onChange={this.onChange} className="filter-Zone">
+                  <option value="">Select Zone</option>
                     {
                       this.state.optionZone.map(el => {
                         return <option key={el.value} label={el.label} value={el.value} />
@@ -208,6 +173,7 @@ class CamFilter extends Component {
                 <FormGroup>
                 <small><Label for="citySelect">City</Label></small>
                   <Input type="select" value={this.state.city} name="city" onChange={this.onChange} className="filter-City">
+                    <option value="">Select City</option>
                     {
                       this.state.optionCity.map(el => {
                         return <option key={el.value} label={el.label} value={el.value} />
@@ -218,6 +184,7 @@ class CamFilter extends Component {
                 <FormGroup>
                 <small><Label for="productSelect" >Product wise</Label></small>
                   <Input type="select" value={this.state.product} name="product" onChange={this.onChange} className="filter-product">
+                  <option value="">Select Product</option>
                     {
                       this.state.optionProduct.map(el => {
                         return <option key={el.value} label={el.label} value={el.value} />

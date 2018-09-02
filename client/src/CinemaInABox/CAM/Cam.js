@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchCamlist } from "../../actions/camact";
+//import { fetchCamlist } from "../../actions/camact";
 import getCamList from './camData';
 import data from '../../data/temp';
 import _ from 'lodash';
-import removeEmptyObject from '../../validation/removeEmptyObject';
+//import removeEmptyObject from '../../validation/removeEmptyObject';
 
 class Cam extends Component {
 
@@ -12,6 +12,7 @@ class Cam extends Component {
     super(props);
     this.state = {
       tcamlists: data.data,
+      tcamlistsnew: getCamList(),
       totalcat: 0,
       totalproduct: 0,
       totalbrand: 0,
@@ -24,12 +25,12 @@ class Cam extends Component {
   }
 
 componentDidMount() {
-  this.gttotalspots()
   var t = this;
   document.querySelector('.filter-submit').addEventListener("click", function(e) {
     t.getfinaldata()
+    document.querySelector('.right-toggler.navbar-toggler').click();
+
   })
-  
 }
 
   onClick = (e) => {
@@ -44,95 +45,131 @@ componentDidMount() {
       const slproduct = document.querySelector('.filter-product').value;
       const sladpos = document.querySelector('.filter-adPosition').value;
       const slduration = document.querySelector('.filter-adDuration').value;
-      var mnselected = []
+     /* var mnselected = [] */
       const selectedel = {}
-      if(slmonth!=''){
+     
+
+      if(slmonth!==''){
         selectedel.month = slmonth
         this.setState({selectedMonth: slmonth})
       }else{
         this.setState({selectedMonth: ''})
       }
-      if(slyear!=''){
+      if(slyear!==''){
         selectedel.year = slyear
         this.setState({selectedYear: slyear})
       }else{
         this.setState({selectedYear: ''})
       }
-      if(slzone!=''){
+      if(slzone!==''){
         selectedel.zone = slzone
       }
-      if(slcity!=''){
+      if(slcity!==''){
         selectedel.city = slcity
       }
-      var filterddata = _.filter(data.data, selectedel);
-      
-      //this.setState({ tcamlists: mnselected })
-      this.setState({ tcamlists: filterddata })
-  }
-  gttotalspots() {
-    const camData = this.state.tcamlists;
-    let camSpots = 0;
-     _.map(camData, (item, index)=>{ 
-        _.map(item, (rowData)=> { if(rowData.length !== 0) {camSpots += rowData.length }  } );
-      });
-    this.setState({ totalspot: camSpots })
-    //this.state.totalspot = camSpots
-}
-  
-  getTotalSpots() {
-    const camData = this.state.tcamlists;
-    let camSpots = 0;
-     _.map(camData, (item, index)=>{
-        _.map(item, (rowData)=> { if(rowData.length !== 0 && rowData[0].brandName !== '' && rowData[0].brandName !== undefined) {camSpots += rowData.length }  } );
-      });
-    return camSpots;
-}
-  
-  getBrand() {
-    const camData = this.state.tcamlists;
-    const camBrand = [];
-     _.map(camData, (item, index)=>{ 
-        _.map(item, (rowData)=> { if(rowData.length !== 0 && rowData[0].brandName !== '' && rowData[0].brandName !== undefined) {  camBrand.push(rowData[0].brandName) }} );
-      });
-    return _.uniq(camBrand);
-}
+      if(slproduct!==''){
+        selectedel.productname = slproduct
+      }
+      if(sladpos!==''){
+        selectedel.addposition = sladpos
+      }
+      if(slduration!==''){
+        selectedel.duration = slduration
+      }
+      //console.log(selectedel)
+      const olddata = data.data;
 
-  getProduct() {
-    const camData = this.state.tcamlists;
+      //before data
+      const beforedata =
+      [].concat.apply([], olddata
+        .map((rowdata) => rowdata.before
+        .map((data) => ({
+          year: rowdata.year,
+          month: rowdata.month,
+          zone: rowdata.zone,
+          city: rowdata.city,
+          brandName: data.brandName,
+          productname: data.productname,
+          category: data.category,
+          language: data.language,
+          duration: data.duration,
+          addposition: 'before'
+        }))
+      ))
+      //after data
+      const duringdata =
+      [].concat.apply([], olddata
+        .map((rowdata) => rowdata.during
+        .map((data) => ({
+          year: rowdata.year,
+          month: rowdata.month,
+          zone: rowdata.zone,
+          city: rowdata.city,
+          brandName: data.brandName,
+          productname: data.productname,
+          category: data.category,
+          language: data.language,
+          duration: data.duration,
+          addposition: 'during'
+        }))
+      ))
+      const newdatacon = beforedata.concat(duringdata)
+
+      const newdata = _.remove(newdatacon, function (e) {
+        return e.brandName !== '' && e.category !== '45' && e.category !== '30' && e.category !== '60' && e.brandName !== '30' && e.productname !== '30' && e.productname !== '40';
+      });
+
+      var filterddata = _.filter(newdata, selectedel);
+      //console.log(filterddata)
+      
+     
+      //this.setState({ tcamlists: mnselected })
+      this.setState({ tcamlistsnew: filterddata })
+  }
+getBrand() {
+  const camData = this.state.tcamlistsnew;
+  const camBrand = [];
+    _.map(camData, (item, index)=>{ 
+      camBrand.push(item.brandName)
+    });
+  return _.uniq(camBrand);
+}
+getProduct() {
+    const camData = this.state.tcamlistsnew;
     const camProduct = [];
      _.map(camData, (item, index)=>{ 
-        _.map(item, (rowData)=> { if(rowData.length !== 0 && rowData[0].brandName !== '' && rowData[0].brandName !== undefined) {  camProduct.push(rowData[0].productname) }} );
+        camProduct.push(item.productname)
       });
     return _.uniq(camProduct);
 }
 
   getCategory() {
-      const camData = this.state.tcamlists;
-      
+      const camData = this.state.tcamlistsnew;
       const camCategory = [];
       _.map(camData, (item, index)=>{ 
-          _.map(item, (rowData)=> { if(rowData.length !== 0 && rowData[0].brandName !== '' && rowData[0].brandName !== undefined) { camCategory.push(rowData[0].category) }  } );
-        });
+        camCategory.push(item.category)
+      });
       return _.uniq(camCategory);
   }
 
   getTopCategory() {
-    const camData = this.state.tcamlists;
+    const camData = this.state.tcamlistsnew;
     const camCategory = [];
     _.map(camData, (item, index)=>{ 
-        _.map(item, (rowData)=> { if(rowData.length !== 0) { camCategory.push({category :rowData[0].category} ) }} );
+        camCategory.push({category :item.category})
       });
 
-      
-      //console.log(camCategory);
-      
       var categoryObject = _.countBy(camCategory, "category");
-      //console.log(categoryObject);
-
-      var result = _.reduceRight(_.invert(_.invert(categoryObject)), function(current, val, key){    
-          current[key] = parseInt(val);
-          return current;
-      },{});
+      let result = _.chain(categoryObject)
+      .map((val, key) => {
+        return { name: key, count: val }
+      })
+      .sortBy('count')
+      .reverse()
+      .keyBy('name')
+      .mapValues('count')
+      .value();
+  
 
       let count=1;
       for (var key in result) {
@@ -146,24 +183,25 @@ componentDidMount() {
       return result;
   }
   getTopbrand() {
-    const camData = this.state.tcamlists;
-    const camCategory = [];
+    const camData = this.state.tcamlistsnew;
+    const camBrand = [];
     _.map(camData, (item, index)=>{ 
-        _.map(item, (rowData)=> { if(rowData.length !== 0) { camCategory.push({brandName :rowData[0].brandName} ) }} );
-      });
-
+      camBrand.push({brandName :item.brandName})
+    });
       
-      //console.log(camCategory);
-      
-      var categoryObject = _.countBy(camCategory, "brandName");
-      //console.log(categoryObject);
+      var brandObject = _.countBy(camBrand, "brandName");
 
-      var result = _.reduceRight(_.invert(_.invert(categoryObject)), function(current, val, key){    
-          current[key] = parseInt(val);
-          return current;
-      },{});
+      let result = _.chain(brandObject)
+      .map((val, key) => {
+        return { name: key, count: val }
+      })
+      .sortBy('count')
+      .reverse()
+      .keyBy('name')
+      .mapValues('count')
+      .value();
 
-      let count=1;
+     let count=1;
       for (var key in result) {
         if (result.hasOwnProperty(key)) {
             if (count> 10){
@@ -172,25 +210,26 @@ componentDidMount() {
             count++;
         }
     }
-      return result;
+    return result;
   }
   getTopproduct() {
-    const camData = this.state.tcamlists;
-    const camCategory = [];
+    const camData = this.state.tcamlistsnew            ;
+    const camProduct = [];
     _.map(camData, (item, index)=>{ 
-        _.map(item, (rowData)=> { if(rowData.length !== 0) { camCategory.push({productname :rowData[0].productname} ) }} );
-      });
-
+      camProduct.push({productname :item.productname})
+    });
       
-      //console.log(camCategory);
-      
-      var categoryObject = _.countBy(camCategory, "productname");
-      //console.log(categoryObject);
+      var categoryObject = _.countBy(camProduct, "productname");
 
-      var result = _.reduceRight(_.invert(_.invert(categoryObject)), function(current, val, key){    
-          current[key] = parseInt(val);
-          return current;
-      },{});
+      let result = _.chain(categoryObject)
+      .map((val, key) => {
+        return { name: key, count: val }
+      })
+      .sortBy('count')
+      .reverse()
+      .keyBy('name')
+      .mapValues('count')
+      .value();
 
       let count=1;
       for (var key in result) {
@@ -204,8 +243,7 @@ componentDidMount() {
       return result;
   }
   render() {
-    const { error, loading, camlist } = this.props;
-    console.log( this.getBrand())
+    //const { error, loading, camlist } = this.props;
     return (
       <div className="clearfix">
         <h3 className="page-title">
@@ -222,7 +260,7 @@ componentDidMount() {
                   <div className="number">{this.getCategory().length}</div>
                   <div className="desc">Total Categories</div>
                 </div>
-                <a className="more" href="javascript:;">
+                <a className="more" href="">
                   View more <i className="m-icon-swapright m-icon-white" />
                 </a>
               </div>
@@ -236,7 +274,7 @@ componentDidMount() {
                   <div className="number">{this.getProduct().length}</div>
                   <div className="desc">Total Products</div>
                 </div>
-                <a className="more" href="javascript:;">
+                <a className="more" href="">
                   View more <i className="m-icon-swapright m-icon-white" />
                 </a>
               </div>
@@ -250,7 +288,7 @@ componentDidMount() {
                   <div className="number">{this.getBrand().length}</div>
                   <div className="desc">Total Brands</div>
                 </div>
-                <a className="more" href="javascript:;">
+                <a className="more" href="">
                   View more <i className="m-icon-swapright m-icon-white" />
                 </a>
               </div>
@@ -261,10 +299,10 @@ componentDidMount() {
                   <i className="fa fa-globe" />
                 </div>
                 <div className="details">
-                  <div className="number">{this.getTotalSpots()}</div>
+                  <div className="number">{this.state.tcamlistsnew.length}</div>
                   <div className="desc">Total Spots</div>
                 </div>
-                <a className="more" href="javascript:;">
+                <a className="more" href="">
                   View more <i className="m-icon-swapright m-icon-white" />
                 </a>
               </div>
@@ -287,7 +325,7 @@ componentDidMount() {
                     <tbody>
                     {
                       Object.entries(this.getTopCategory()).map(([key, value], index) => {
-                        const percentageValue = Math.round((value/200)*100);
+                        const percentageValue = Math.round((value/this.state.tcamlistsnew.length)*100);
                         if (key !== 'undefined' && key !==''){
                           return (
                             <tr key={index}>
@@ -321,17 +359,17 @@ componentDidMount() {
                     <tbody>
                     {
                       Object.entries(this.getTopbrand()).map(([key, value], index) => {
-                          const percentageValue = Math.round((value/200)*100);
+                          const percentageValue = Math.round((value/this.state.tcamlistsnew.length)*100);
                           if (key !== 'undefined' && key !==''){
-                            return (
-                              <tr key={index}>
-                                <td stule="w">
-                                  {key}
-                                </td>
-                                <td className="width100">{percentageValue}%</td>
-                              </tr>
-                            )
-                          }
+                          return (
+                            <tr key={index}>
+                              <td stule="w">
+                                {key}
+                              </td>
+                              <td className="width100">{percentageValue}%</td>
+                            </tr>
+                          )
+                        }
                         })
                       }
                     </tbody>
@@ -355,7 +393,7 @@ componentDidMount() {
                     <tbody>
                     {
                       Object.entries(this.getTopproduct()).map(([key, value], index) => {
-                          const percentageValue = Math.round((value/200)*100);
+                          const percentageValue = Math.round((value/this.state.tcamlistsnew.length)*100);
                           if (key !== 'undefined' && key !==''){
                             return (
                               <tr key={index}>

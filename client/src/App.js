@@ -21,7 +21,7 @@ import 'font-awesome/css/font-awesome.min.css';
 import './scss/style.css'
 
 import { DefaultLayout }  from './containers';
-import Register from './components/auth/Register';
+// import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 
 

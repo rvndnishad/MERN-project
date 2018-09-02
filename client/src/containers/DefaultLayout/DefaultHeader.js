@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Badge, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem } from 'reactstrap';
+import { DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem } from 'reactstrap';
 
-import { BrowserRouter, Router, Route, Link, Switch, NavLink , Redirect} from "react-router-dom";
+import { BrowserRouter, Link} from "react-router-dom";
 
 import PropTypes from 'prop-types';
 import { logoutUser } from './../../actions/authActions';

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Nav, NavItem, NavLink, Button, TabContent,TabPane } from 'reactstrap';
+import { Nav, NavItem, NavLink, Button, TabContent } from 'reactstrap';
 import PropTypes from 'prop-types';
 
 import CamFilter from '../../CinemaInABox/CAM/CamFilter';

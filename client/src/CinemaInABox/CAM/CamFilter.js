@@ -10,6 +10,7 @@ class CamFilter extends Component {
     super(props);
     this.state = {
       month:'june',
+      zoneval:'',
       year: '',
       zone: '',
       city: '',
@@ -23,45 +24,49 @@ class CamFilter extends Component {
       optionProduct: [],
       optionAdPosition: [
         {
-          value:"Option0",
+          value: "",
           label: "All (BMP & Interval)"
         },
         {
-          value: "Option1",
+          value: "before",
           label: "Before the Movie"
         },
         {
-          value: "Option2",
+          value: "during",
           label: "During Interval"
         }
       ],
       optionAdDuration: [
         {
-          value:"Option0",
+          value:"",
           label: "All Duration"
         },
         {
-          value: "Option1",
+          value: "10",
           label: "10 seconds"
         },
         {
-          value: "Option2",
+          value: "20",
           label: "20 seconds"
         },
         {
-          value: "Option3",
+          value: "30",
           label: "30 seconds"
         }
       ]
     }
     this.handleSubmit = this.handleSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.chityonchange = this.chityonchange.bind(this)
   }
   componentDidMount() {
     //this.getallmonth()
   }
   componentWillReceiveProps(props){
-    console.log("Component will receive props")
+    //console.log("Component will receive props")
+  }
+  componentDidUpdate (){
+    //this.getallmonth();
   }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -77,7 +82,7 @@ class CamFilter extends Component {
       const cf = [];
       const totalproduct = []
       const totalproductfinal = []
-      _.map(data.data, (item, index)=>{ 
+      _.map(data.data, (item, index)=>{
         _.map(item, (rowData)=> { if(rowData.length !== 0) { 
            m.push(item.month)
            y.push(item.year) 
@@ -105,15 +110,43 @@ class CamFilter extends Component {
       _.map(_.uniq(c), (itemc, i)=>{ 
         cf.push({"value": itemc, "label": itemc})
       });
-      _.map(_.uniq(totalproduct), (itemd, i)=>{ 
+
+      var aa = _.compact(totalproduct)
+      _.map(_.uniq(aa), (itemd, i)=>{ 
         totalproductfinal.push({"value": itemd, "label": itemd})
       });
       
+      /* this.setState({optionProduct: _.uniq(totalproductfinal)})
+      this.setState({optionsMonth:mf})
+      this.setState({optionYear:yf})
+      this.setState({optionZone:zf})
+      this.setState({optionCity:cf}) */
+
       this.state.optionProduct = _.uniq(totalproductfinal)
       this.state.optionsMonth = mf
       this.state.optionYear = yf
       this.state.optionZone = zf
-      this.state.optionCity = cf
+      //this.state.optionCity = cf
+  }
+  chityonchange(ev) {
+    ev.preventDefault();
+    this.setState({ [ev.target.name]: ev.target.value });
+    const c = []
+    const cf = [];
+    //this.state.zoneval = ev.target.value
+    _.map(data.data, (item, index)=>{
+      _.map(item, (rowData)=> { if(rowData.length !== 0) { 
+          if(item.zone === ev.target.value){
+            c.push(item.city)
+          }
+        }
+      });
+    });
+    _.map(_.uniq(c), (itemc, i)=>{ 
+      cf.push({"value": itemc, "label": itemc})
+    });
+    this.state.optionCity = cf
+
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -127,7 +160,7 @@ class CamFilter extends Component {
       adPosition: this.state.adPosition,
       duration: this.state.duration
     }
-    console.log(payload)
+    //console.log(payload)
   }
   render() {
     this.getallmonth()
@@ -161,7 +194,7 @@ class CamFilter extends Component {
                 </FormGroup>
                 <FormGroup>
                 <small><Label for="zoneSelect" >Zone</Label></small>
-                  <Input type="select" value={this.state.zone} name="zone" onChange={this.onChange} className="filter-Zone">
+                  <Input type="select" value={this.state.zoneval} name="zoneval" onChange={this.chityonchange} className="filter-Zone">
                   <option value="">Select Zone</option>
                     {
                       this.state.optionZone.map(el => {

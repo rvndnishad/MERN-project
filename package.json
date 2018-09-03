@@ -8,7 +8,9 @@
     "start": "node server.js",
     "server": "nodemon server.js",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run dev"
+
   },
   "author": "Arvind Nishad",
   "license": "BanyanTreeAnalytics",
@@ -31,5 +33,8 @@
   },
   "devDependencies": {
     "nodemon": "^1.18.3"
-  }
+  },
+  "engines": {
+    "node": "10.4.0"
+}
 }

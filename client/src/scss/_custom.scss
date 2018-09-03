@@ -129,6 +129,13 @@ body[class="aside-menu-hidden"] {
   margin-bottom: 25px;
   overflow: hidden;
   border-radius: 0;
+  a{
+    color: #fff;
+    cursor: pointer;
+    &:hover{
+      color: #fff !important;
+    }
+  }
   .details {
     position: absolute;
     right: 15px;
@@ -433,4 +440,7 @@ html:not([dir="rtl"]) .sidebar-lg-show.sidebar-fixed .app-footer {
 .filter-submit{
   margin-top: 1vh;
   vertical-align: bottom;
+}
+.hidden{
+  display: none;
 }

@@ -9977,6 +9977,11 @@ body[class="aside-menu-hidden"] .app-footer {
   margin-bottom: 25px;
   overflow: hidden;
   border-radius: 0; }
+  .dashboard-stat a {
+    color: #fff;
+    cursor: pointer; }
+    .dashboard-stat a:hover {
+      color: #fff !important; }
   .dashboard-stat .details {
     position: absolute;
     right: 15px;
@@ -10219,6 +10224,9 @@ body[class="aside-menu-hidden"] .app-footer {
 .filter-submit {
   margin-top: 1vh;
   vertical-align: bottom; }
+
+.hidden {
+  display: none; }
 
 html body .app.flex-row.align-items-center {
   height: 100vh; }

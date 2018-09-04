@@ -1,3 +1,6 @@
+import data from '../data/temp';
+import _ from 'lodash';
+
 export const RECEIVE_CAMLIST_BEGIN = "@camact/RECEIVE_CAMLIST_BEGIN";
 export const RECEIVE_CAMLIST_SUCCESS = "@camact/RECEIVE_CAMLIST_SUCCESS";
 export const RECEIVE_CAMLIST_FAILURE = "@camact/RECEIVE_CAMLIST_FAILURE";
@@ -17,7 +20,9 @@ export const fetchCamsError = error => ({
   type: RECEIVE_CAMLIST_FAILURE,
   payload: { error }
 });
+export const getfinaldata = () => {
 
+}
 export const fetchCamlist = () => {
   return dispatch => {
     dispatch(fetchCamBegin());

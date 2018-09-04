@@ -77,9 +77,7 @@ class Register extends Component {
                           className={classnames('form-control form-control-md', {
                             'is-invalid': errors.name
                           })}
-                          placeholder="Name"
                           name="name"
-                          autoComplete="off"
                           value={this.state.name}
                           onChange={this.onChange}
                         />
@@ -98,7 +96,6 @@ class Register extends Component {
                             'is-invalid': errors.email
                           })}
                           autoComplete="off"
-                          placeholder="Email Address"
                           name="email"
                           value={this.state.email}
                           onChange={this.onChange}
@@ -120,7 +117,6 @@ class Register extends Component {
                           className={classnames('form-control form-control-md', {
                             'is-invalid': errors.password
                           })}
-                          placeholder="Password"
                           name="password"
                           value={this.state.password}
                           onChange={this.onChange}
@@ -142,7 +138,6 @@ class Register extends Component {
                           className={classnames('form-control form-control-md', {
                             'is-invalid': errors.password2
                           })}
-                          placeholder="Confirm Password"
                           name="password2"
                           value={this.state.password2}
                           onChange={this.onChange}

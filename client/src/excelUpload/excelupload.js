@@ -2,7 +2,7 @@ import React, {
   Component
 } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Input, Button, FormFeedback, FormGroup  } from 'reactstrap';
+import { Form, Input, Button, FormGroup  } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import classnames from 'classnames';
 import { uploadExcel } from '../actions/authActions';

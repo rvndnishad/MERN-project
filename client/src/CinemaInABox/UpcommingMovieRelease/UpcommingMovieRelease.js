@@ -1,13 +1,13 @@
 import React, {
     Component
 } from 'react';
-import {
+/* import {
     Button,
     Form,
     FormGroup,
     Label,
     Input
-} from 'reactstrap';
+} from 'reactstrap'; */
 
 
 class UpcommingMovieRelease extends Component {

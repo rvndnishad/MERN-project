@@ -6,7 +6,7 @@ function Loading() {
 }
 
 const ExcelUpload = Loadable({
-  loader: () => import('./ExcelUpload/excelupload'),
+  loader: () => import('./ExcelUpload/Excelupload'),
   loading: Loading,
 });
 

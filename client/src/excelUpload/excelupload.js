@@ -7,10 +7,11 @@ import { withRouter } from 'react-router-dom';
 import classnames from 'classnames';
 import { uploadExcel } from '../actions/authActions';
 import { connect } from 'react-redux';
+import removeEmptyObjects from '../validation/removeEmptyObject';
 
 class Excelupload extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       file:null,
       errors: {},
@@ -89,7 +90,7 @@ class Excelupload extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-     if (nextProps.errors) {
+    if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
   }
@@ -122,10 +123,15 @@ class Excelupload extends Component {
           <i className = "icon-cloud-upload" > </i> <span>Select Excel File</span>
         </label>
         </FormGroup>
-        <FormGroup>{errors.file && ( <div>{errors.file}</div> )}</FormGroup>
-        <FormGroup>{errors.xls && ( <div>{errors.xls}</div> )}</FormGroup>
-        <FormGroup>{errors.fileType && ( <div>{errors.fileType}</div> )}</FormGroup>
-        <FormGroup>{errors.fileCorupt && ( <div>{errors.fileCorupt}</div> )}</FormGroup>
+        <FormGroup>{
+          Object.entries(errors).map((key, index)=> {
+            console.log("index" + index);
+            console.log("key" + JSON.stringify(key));
+            return (
+              <div key={index}>{errors[key]}</div>
+            )
+          })
+        }</FormGroup>
         <FormGroup>
         <Input type = "file" name = "file" id = "file-upload" onClick={this.onClick}  onChange={this.onChange}  
         className={classnames('form-control form-control-md', {

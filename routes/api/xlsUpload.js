@@ -28,7 +28,7 @@ const storage = multer.diskStorage({ //multers disk storage settings
 
 var upload = multer({ //multer settings
                 storage: storage,
-                fileFilter : function(req, res, file, callback) { //file filter
+                fileFilter : function(req, file, callback) { //file filter
                     if (['xls', 'xlsx'].indexOf(file.originalname.split('.')[file.originalname.split('.').length-1]) === -1) {
                         return callback(new Error('Wrong extension type'));
                     }
@@ -38,17 +38,17 @@ var upload = multer({ //multer settings
 
 //API path that will upload the file
 
-router.post('/',  function(req, res) {
-    const errors = {};
+router.post('/',  function(req, res) {  
+    let errors = {};
     console.log("Starting upload...");
         let exceltojson;
 
         upload(req,res, (err) => {
             if(err){
-                //errors.default = err;
+                errors.err = err;
                  //res.json({error_code:1,err_desc:err});
                  return res.status(400).json(errors);
-                 return;
+                 //return;
             }
             console.log("req.file => ", req.file);
             
@@ -59,8 +59,9 @@ router.post('/',  function(req, res) {
                 return res.status(400).json(errors);
                  //return;
             }
-            if(req.file.name.split(".")[1] !== 'xlsx' || req.file.name.split(".")[1] !== 'xls'){
+            if(req.file.originalname.split(".")[1] !== 'xlsx' || req.file.originalname.split(".")[1] !== 'xls'){
                 errors.fileType = 'Wrong file type selected.';
+                console.log("Show file format error here.");
                 //res.json({error_code:1,err_desc:"No file passed"});
                 return res.status(400).json(errors);
                  //return;

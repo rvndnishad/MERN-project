@@ -7,6 +7,9 @@ import data from '../../data/temp';
 import { History } from "react-router"
 import _ from 'lodash';
 import filterddata from './camFilterdata';
+import { Progress } from 'react-sweet-progress';
+import "react-sweet-progress/lib/style.css";
+import Modal from 'react-responsive-modal';
 //import removeEmptyObject from '../../validation/removeEmptyObject';
 
 class Cam extends Component {
@@ -28,6 +31,7 @@ class Cam extends Component {
       productshow: true,
       catshow: true,
       topcount: 10,
+      open: false,
     }
     this.getTopCategory = this.getTopCategory.bind(this);
 
@@ -40,8 +44,18 @@ class Cam extends Component {
       document.querySelector('.right-toggler.navbar-toggler').click();
 
     })
-  }
+    document.querySelector('#consistentbrand').addEventListener("click", function (e) {
+      t.onOpenModal()
 
+    })
+  }
+  onOpenModal = () => {
+    this.setState({ open: true });
+  };
+
+  onCloseModal = () => {
+    this.setState({ open: false });
+  };
   refilterdata() {
     function groupBy(dataToGroupOn, fieldNameToGroupOn, fieldNameForGroupName, fieldNameForChildren) {
       let result = _.chain(dataToGroupOn)
@@ -232,8 +246,10 @@ class Cam extends Component {
   }
 
   render() {
-    //const { error, loading, camlist } = this.props;
-
+    const { open } = this.state;
+    let mstyles = {
+      width: '350px',
+    };
     return (
       <div className="clearfix">
         <h3 className="page-title">
@@ -320,10 +336,23 @@ class Cam extends Component {
                           if (key !== 'undefined' && key !== '') {
                             return (
                               <tr key={index} onClick={this.goTolink.bind(this)} data-link={key}>
-                                <td stule="w">
+                                <td stule="w" style={{ verticalAlign: 'middle' }}>
                                   {key}
                                 </td>
-                                <td className="width100">{percentageValue}%</td>
+                                <td className="width100"><Progress
+                                  type="circle"
+                                  strokeWidth={6}
+                                  width={60}
+                                  percent={percentageValue}
+                                  theme={{
+                                    default: {
+                                      symbol: percentageValue + '%',
+                                      trailColor: 'rgba(135, 117, 167, 0.3)',
+                                      color: '#4884b8'
+                                    }
+                                  }}
+                                  status="default"
+                                /></td>
                               </tr>
                             )
                           }
@@ -354,10 +383,23 @@ class Cam extends Component {
                           if (key !== 'undefined' && key !== '') {
                             return (
                               <tr key={index}>
-                                <td stule="w">
+                                <td stule="w" style={{ verticalAlign: 'middle' }}>
                                   {key}
                                 </td>
-                                <td className="width100">{percentageValue}%</td>
+                                <td className="width100"><Progress
+                                  type="circle"
+                                  strokeWidth={6}
+                                  width={60}
+                                  percent={percentageValue}
+                                  theme={{
+                                    default: {
+                                      symbol: percentageValue + '%',
+                                      trailColor: 'rgba(135, 117, 167, 0.3)',
+                                      color: '#3ea7a0'
+                                    }
+                                  }}
+                                  status="default"
+                                /></td>
                               </tr>
                             )
                           }
@@ -388,10 +430,23 @@ class Cam extends Component {
                           if (key !== 'undefined' && key !== '') {
                             return (
                               <tr key={index}>
-                                <td stule="w">
+                                <td stule="w" style={{ verticalAlign: 'middle' }}>
                                   {key}
                                 </td>
-                                <td className="width100">{percentageValue}%</td>
+                                <td className="width100"><Progress
+                                  type="circle"
+                                  strokeWidth={6}
+                                  width={60}
+                                  percent={percentageValue}
+                                  theme={{
+                                    default: {
+                                      symbol: percentageValue + '%',
+                                      trailColor: 'rgba(135, 117, 167, 0.3)',
+                                      color: '#e26a6a'
+                                    }
+                                  }}
+                                  status="default"
+                                /></td>
                               </tr>
                             )
                           }
@@ -404,6 +459,57 @@ class Cam extends Component {
             </div>
           </div>
         </div>
+        <Modal open={open} onClose={this.onCloseModal} center>
+          <h2>Consistent Brands Month Wise</h2>
+          <div>
+            <table className="table">
+              <thead>
+                <tr>
+                  <th style={mstyles}>Brand</th>
+                  <th>August</th>
+                  <th>September</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style={{ verticalAlign: 'middle' }}>VijaySales</td>
+                  <td>
+                    <Progress
+                      type="circle"
+                      strokeWidth={6}
+                      width={60}
+                      percent={75}
+                      theme={{
+                        default: {
+                          symbol: 75 + '%',
+                          trailColor: 'rgba(135, 117, 167, 0.3)',
+                          color: '#e26a6a'
+                        }
+                      }}
+                      status="default"
+                    />
+                  </td>
+                  <td>
+                    <Progress
+                      type="circle"
+                      strokeWidth={6}
+                      width={60}
+                      percent={65}
+                      theme={{
+                        default: {
+                          symbol: 65 + '%',
+                          trailColor: 'rgba(135, 117, 167, 0.3)',
+                          color: '#4b77be'
+                        }
+                      }}
+                      status="default"
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </Modal>
       </div>
     );
   }
@@ -411,7 +517,7 @@ class Cam extends Component {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  camlist: state.camlist,
+  camlist: filterddata(),
   loading: state.camlist,
   error: state.camlist
 });

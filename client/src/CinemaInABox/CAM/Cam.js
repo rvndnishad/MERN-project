@@ -40,7 +40,7 @@ class Cam extends Component {
       currentcatname: '',
       brandItem: [],
       productModal: false,
-      currentbrand: '',
+      currentproduct: '',
       productItem: [],
       consistentBrandYear: '2017',
       consistentItem: []
@@ -51,6 +51,7 @@ class Cam extends Component {
 
   componentDidMount() {
     let t = this;
+    t.refilterdata();
     document.querySelector('.filter-submit').addEventListener("click", function (e) {
       t.refilterdata();
       t.consistentBrand();
@@ -335,11 +336,11 @@ class Cam extends Component {
   }
   getrelatedProducts(e) {
     this.setState({ productModal: true });
-    const brandname = e.currentTarget.getAttribute('data-link')
+    const catename = e.currentTarget.getAttribute('data-link')
     const camData = this.state.tcamlistsnew;
     const camBrand = [];
     _.map(camData, (item, index) => {
-      if (item.brandName === brandname) {
+      if (item.category === catename) {
         camBrand.push({ productname: item.productname, screenid: item.screenid })
       }
     });
@@ -374,15 +375,15 @@ class Cam extends Component {
     }
     const finalproduct = []
     finalproduct.push({ "data": result })
-    this.setState({ productItem: finalproduct, currentbrand: brandname })
+    this.setState({ productItem: result, currentcatname: catename })
   }
   getrelatedBrand(e) {
     this.setState({ brandmodal: true });
-    const catname = e.currentTarget.getAttribute('data-link')
+    const productName = e.currentTarget.getAttribute('data-link')
     const camData = this.state.tcamlistsnew;
     const camBrand = [];
     _.map(camData, (item, index) => {
-      if (item.category === catname) {
+      if (item.productname === productName) {
         camBrand.push({ brandName: item.brandName, screenid: item.screenid })
       }
     });
@@ -398,7 +399,7 @@ class Cam extends Component {
     let brandObject = _.countBy(uniqbrand, "brandName");
     let result = _.chain(brandObject)
       .map((val, key) => {
-        return { name: key, count: val, color: '#00aeef' }
+        return { name: key, count: val }
       })
       .sortBy('count')
       .reverse()
@@ -417,7 +418,7 @@ class Cam extends Component {
     }
     const finalbrand = []
     finalbrand.push({ "data": result })
-    this.setState({ brandItem: finalbrand, currentcatname: catname })
+    this.setState({ brandItem: result, currentproduct: productName })
   }
   getTopbrand() {
     const camData = this.state.tcamlistsnew;
@@ -520,7 +521,7 @@ class Cam extends Component {
   }
 
   render() {
-    const { consitmodal, brandmodal, brandItem, currentcatname, productModal, currentbrand, productItem, consistentItem } = this.state;
+    const { consitmodal, brandmodal, brandItem, currentcatname, productModal, currentbrand, productItem, consistentItem, currentproduct } = this.state;
     let mstyles = {
       width: '350px',
     };
@@ -599,7 +600,7 @@ class Cam extends Component {
                           const percentageValue = Math.round((value / this.state.totalscreen) * 100);
                           if (key !== 'undefined' && key !== '') {
                             return (
-                              <tr key={index} onClick={this.getrelatedBrand.bind(this)} data-link={key}>
+                              <tr key={index} onClick={this.getrelatedProducts.bind(this)} data-link={key}>
                                 <td stule="w" style={{ verticalAlign: 'middle' }}>
                                   {key}
                                 </td>
@@ -639,14 +640,14 @@ class Cam extends Component {
                   </div>
                 </div>
                 <div className="portlet-body">
-                  <table className="table clickable">
+                  <table className="table">
                     <tbody>
                       {
                         Object.entries(this.getTopbrand()).map(([key, value], index) => {
                           const percentageValue = Math.round((value / this.state.totalscreen) * 100);
                           if (key !== 'undefined' && key !== '') {
                             return (
-                              <tr key={index} onClick={this.getrelatedProducts.bind(this)} data-link={key}>
+                              <tr key={index}>
                                 <td stule="w" style={{ verticalAlign: 'middle' }}>
                                   {key}
                                 </td>
@@ -677,14 +678,81 @@ class Cam extends Component {
           </div>
         </div>
         <Modal open={productModal} onClose={this.onCloseProductModal} center classNames={{ 'modal': 'modalcontainer', 'overlay': 'constoverlay' }}>
-          <ColumnChart colors={["#e26a6a"]} data={productItem} xtitle="Product" ytitle="Count" title={currentbrand + "'s Top 10 Product"} legend="false" height="600px" />
+          <div className="portlet-body">
+            <h2 className="modaltitle" style={{ backgroundColor: '#44b6ae' }}>{currentcatname + "'s Top 10 Product"}</h2>
+            <table className="table clickable">
+              <tbody>
+                {
+                  Object.entries(productItem).map(([key, value], index) => {
+                    const percentageValue = Math.round((value / this.state.totalscreen) * 100);
+                    if (key !== 'undefined' && key !== '') {
+                      return (
+                        <tr key={index} onClick={this.getrelatedBrand.bind(this)} data-link={key}>
+                          <td stule="w" style={{ verticalAlign: 'middle' }}>
+                            {key}
+                          </td>
+                          <td className="width100"><Progress
+                            type="circle"
+                            strokeWidth={6}
+                            width={60}
+                            percent={percentageValue}
+                            theme={{
+                              default: {
+                                symbol: percentageValue + '%',
+                                trailColor: 'rgba(135, 117, 167, 0.3)',
+                                color: '#44b6ae'
+                              }
+                            }}
+                            status="default"
+                          /></td>
+                        </tr>
+                      )
+                    }
+                  })
+                }
+              </tbody>
+            </table>
+          </div>
         </Modal>
         <Modal colors={["#4b77be"]} open={brandmodal} onClose={this.onCloseBrandModal} center classNames={{ 'modal': 'modalcontainer', 'overlay': 'constoverlay' }}>
-          <ColumnChart data={brandItem} xtitle="Brand" ytitle="Count" title={currentcatname + "'s Top 10 Brand"} legend="false" height="600px" />
+          <div className="portlet-body">
+            <h2 className="modaltitle" style={{ backgroundColor: '#e04a49' }}>{currentproduct + "'s Top 10 Brand"}</h2>
+            <table className="table">
+              <tbody>
+                {
+                  Object.entries(brandItem).map(([key, value], index) => {
+                    const percentageValue = Math.round((value / this.state.totalscreen) * 100);
+                    if (key !== 'undefined' && key !== '') {
+                      return (
+                        <tr key={index}>
+                          <td stule="w" style={{ verticalAlign: 'middle' }}>
+                            {key}
+                          </td>
+                          <td className="width100"><Progress
+                            type="circle"
+                            strokeWidth={6}
+                            width={60}
+                            percent={percentageValue}
+                            theme={{
+                              default: {
+                                symbol: percentageValue + '%',
+                                trailColor: 'rgba(135, 117, 167, 0.3)',
+                                color: '#e04a49'
+                              }
+                            }}
+                            status="default"
+                          /></td>
+                        </tr>
+                      )
+                    }
+                  })
+                }
+              </tbody>
+            </table>
+          </div>
         </Modal>
         <Modal open={consitmodal} onClose={this.onCloseModal} center classNames={{ 'modal': 'modalcontainer', 'overlay': 'constoverlay' }}>
-          <h2>Consistent Brands Month Wise</h2>
-          <LineChart data={consistentItem} xtitle="2018" ytitle="Spots" height="600px" />
+          <LineChart data={consistentItem} xtitle="2018" ytitle="Spots" height="600px" title="Consistent Brands Month Wise" />
         </Modal>
       </div >
     );

@@ -445,9 +445,18 @@ html:not([dir="rtl"]) .sidebar-lg-show.sidebar-fixed .app-footer {
   display: none;
 }
 .modalcontainer{
-  max-width: 1170px;
+  max-width: 800px;
   width: 80%;
 }
 .constoverlay{
   z-index: 9999;
+}
+.modaltitle{
+  background-color: #4b77be;
+  color: #fff;
+  padding: 15px;
+  margin-left: -19px;
+  margin-right: -20px;
+  margin-top: -19px;
+  margin-bottom: 0;
 }

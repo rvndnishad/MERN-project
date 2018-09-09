@@ -444,3 +444,10 @@ html:not([dir="rtl"]) .sidebar-lg-show.sidebar-fixed .app-footer {
 .hidden{
   display: none;
 }
+.modalcontainer{
+  max-width: 1170px;
+  width: 80%;
+}
+.constoverlay{
+  z-index: 9999;
+}

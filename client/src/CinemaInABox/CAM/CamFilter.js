@@ -9,7 +9,7 @@ class CamFilter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      month: 'june',
+      month: 'June',
       zoneval: '',
       year: '',
       zone: '',

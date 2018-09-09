@@ -10228,5 +10228,12 @@ body[class="aside-menu-hidden"] .app-footer {
 .hidden {
   display: none; }
 
+.modalcontainer {
+  max-width: 1170px;
+  width: 80%; }
+
+.constoverlay {
+  z-index: 9999; }
+
 html body .app.flex-row.align-items-center {
   height: 100vh; }

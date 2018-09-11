@@ -10228,6 +10228,7 @@ body[class="aside-menu-hidden"] .app-footer {
 .hidden {
   display: none; }
 
+<<<<<<< HEAD
 .topButton {
   float: right; }
 
@@ -10349,6 +10350,23 @@ body[class="aside-menu-hidden"] .app-footer {
 
 .footer {
   height: 10vh; }
+=======
+.modalcontainer {
+  max-width: 800px;
+  width: 80%; }
+
+.constoverlay {
+  z-index: 9999; }
+
+.modaltitle {
+  background-color: #4b77be;
+  color: #fff;
+  padding: 15px;
+  margin-left: -19px;
+  margin-right: -20px;
+  margin-top: -19px;
+  margin-bottom: 0; }
+>>>>>>> 93306f240f99d6a14e33d84a8a4517aefc6814df
 
 html body .app.flex-row.align-items-center {
   height: 100vh; }

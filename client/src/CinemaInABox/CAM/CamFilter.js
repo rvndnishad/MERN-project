@@ -9,7 +9,7 @@ class CamFilter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      month: 'june',
+      month: 'June',
       zoneval: '',
       year: '',
       zone: '',
@@ -251,7 +251,7 @@ class CamFilter extends Component {
               <small><Button color="primary" outline block >New Brand entry this month</Button></small>
             </FormGroup>
             <FormGroup>
-              <small><Button color="primary" outline block >Consistent brands month wise</Button></small>
+              <small><Button color="primary" outline block id="consistentbrand">Consistent brands month wise</Button></small>
             </FormGroup>
             <Button color="success" className="filter-submit mb-2 mr-sm-2 mb-sm-0" block >Submit</Button>
           </form>

@@ -580,4 +580,19 @@ html:not([dir="rtl"]) .sidebar-lg-show.sidebar-fixed .app-footer {
 .footer {
   height: 10vh;
 
+.modalcontainer{
+  max-width: 800px;
+  width: 80%;
+}
+.constoverlay{
+  z-index: 9999;
+}
+.modaltitle{
+  background-color: #4b77be;
+  color: #fff;
+  padding: 15px;
+  margin-left: -19px;
+  margin-right: -20px;
+  margin-top: -19px;
+  margin-bottom: 0;
 }

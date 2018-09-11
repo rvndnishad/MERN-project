@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { connect } from "react-redux";
 import _ from 'lodash';
-import cfilterddata from './camFilterdata';
+//import cfilterddata from './camFilterdata';
 import * as qs from 'query-string';
 import data from '../../data/temp';
 

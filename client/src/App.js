@@ -9,6 +9,8 @@ import store from './store';
 
 import PrivateRoute from '../src/components/common/PrivateRoute';
 
+import Portfolio from "./CinemaInABox/Portfolio/Portfolio";
+
 import './App.css';
 // Styles
 // CoreUI Icons Set
@@ -53,7 +55,8 @@ class App extends Component {
         <Router>
           <div className="App">
           <Switch>
-            <Route exact path="/login" component={Login} />
+            <Route exact path="/portfolio" component={Portfolio} />
+            {/*<Route exact path="/login" component={Login} />*/}
             <Switch>
                 <PrivateRoute path="/" component={DefaultLayout} />
             </Switch>

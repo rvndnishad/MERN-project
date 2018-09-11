@@ -24,7 +24,7 @@ export const uploadExcel = (excelData, history) => dispatch => {
   data.append('file', excelData);
   const config = {
       headers: {
-          'content-type': 'application/vnd.ms-excel'
+          'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
       }
   }
   console.log(excelData);

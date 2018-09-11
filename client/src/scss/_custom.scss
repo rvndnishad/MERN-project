@@ -444,3 +444,140 @@ html:not([dir="rtl"]) .sidebar-lg-show.sidebar-fixed .app-footer {
 .hidden{
   display: none;
 }
+
+.topButton {
+  float:right;
+}
+
+.buzz-index {
+  background: url(../asset/Images/buzz_index_Logo.png);
+}
+
+.portfolio {
+  background-color: #fff;
+}
+.portfolio .navbar {
+  padding: 17px 33rem 1rem 28rem !important; 
+}
+
+.typewriter h1 {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid orange; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(30, end),
+    blink-caret .5s step-end infinite;
+}
+
+/* The typing effect */
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange }
+}
+
+.welcome-screen{
+  height: 100vh;
+  background: url(../asset/Images/shutterstock_557189953.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.welcome-text{
+  z-index: 9999;
+  padding: 4rem 28rem;
+  font-size: 3rem;
+}
+
+.main {
+  display: flex;
+  flex-direction: row;
+}
+
+.home-container-1,.home-container-2, .home-container-3, .home-container-4  {
+  padding: 2rem 5rem !important;
+  height: 100vh;
+  margin-top:10px;
+}
+
+
+.buzz-image{
+  background: url(../asset/Images/buzz_index_Logo.png);
+  height: 160pt;
+  background-size: contain;
+  padding-top:2rem;
+  background-repeat: no-repeat;
+}
+.cam-image {
+  background: url(../asset/Images/Cam_Logo.jpg);
+  height: 160pt;
+  background-size: contain;
+  padding-top:2rem;
+  background-repeat: no-repeat; 
+}
+.portfolio .logo {
+  height:2rem;
+}
+
+// .home-container-3 {
+//   background : aliceblue;
+// }
+
+.main::nth-child(odd) {
+  background : aliceblue;
+}
+
+.portfolio .main1, .portfolio .main2, .portfolio .main3  {
+
+  border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.1), 0 6px 10px 5px rgba(0, 0, 0, 0.1), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.1s ease-in-out;
+}
+
+
+.main1 {
+  background: #77A1D3;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #E684AE, #79CBCA, #77A1D3);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #E684AE, #79CBCA, #77A1D3); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+}
+
+.main3 {
+  background: #2BC0E4;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #EAECC6, #2BC0E4);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #EAECC6, #2BC0E4); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+}
+
+.main5 {
+  background: #614385;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #516395, #614385);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #516395, #614385); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+
+}
+
+.portfolio-info {
+  font-size: 15px;
+}
+
+.card {
+  background: #2b5876;
+    color: #fff;
+}
+
+.home-container-3 ul {
+  line-height: 35px;
+}
+
+.footer {
+  height: 10vh;
+
+}

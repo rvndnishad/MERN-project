@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require("multer");
 
-
+const XLSX = require("xlsx");
 const xlstojson = require("xls-to-json-lc");
 const xlsxtojson = require("xlsx-to-json");
 const passport = require('passport');
@@ -55,13 +55,6 @@ router.post('/',  function(req, res) {
             /** Multer gives us file info in req.file object */
             if(!req.file){
                 errors.file = 'No file selected.';
-                //res.json({error_code:1,err_desc:"No file passed"});
-                return res.status(400).json(errors);
-                 //return;
-            }
-            if(req.file.originalname.split(".")[1] !== 'xlsx' || req.file.originalname.split(".")[1] !== 'xls'){
-                errors.fileType = 'Wrong file type selected.';
-                console.log("Show file format error here.");
                 //res.json({error_code:1,err_desc:"No file passed"});
                 return res.status(400).json(errors);
                  //return;

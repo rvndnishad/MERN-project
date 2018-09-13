@@ -248,7 +248,7 @@ class CamFilter extends Component {
               </Input>
             </FormGroup>
             <FormGroup>
-              <small><Button color="primary" outline block >New Brand entry this month</Button></small>
+              <small><Button color="primary" id="newbrandbtn" outline block >New Brand entry this month</Button></small>
             </FormGroup>
             <FormGroup>
               <small><Button color="primary" outline block id="consistentbrand">Consistent brands month wise</Button></small>

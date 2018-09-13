@@ -525,9 +525,6 @@ html:not([dir="rtl"]) .sidebar-lg-show.sidebar-fixed .app-footer {
   height:2rem;
 }
 
-// .home-container-3 {
-//   background : aliceblue;
-// }
 
 .main::nth-child(odd) {
   background : aliceblue;
@@ -579,7 +576,7 @@ html:not([dir="rtl"]) .sidebar-lg-show.sidebar-fixed .app-footer {
 
 .footer {
   height: 10vh;
-
+}
 .modalcontainer{
   max-width: 800px;
   width: 80%;
@@ -587,7 +584,7 @@ html:not([dir="rtl"]) .sidebar-lg-show.sidebar-fixed .app-footer {
 .constoverlay{
   z-index: 9999;
 }
-.modaltitle{
+.modaltitle {
   background-color: #4b77be;
   color: #fff;
   padding: 15px;

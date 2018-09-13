@@ -13,7 +13,7 @@ import "react-sweet-progress/lib/style.css";
 import Modal from 'react-responsive-modal';
 import ReactChartkick, { LineChart, PieChart, ColumnChart } from 'react-chartkick'
 import Chart from 'chart.js'
-
+import WordCloud from 'react-d3-cloud';
 //import removeEmptyObject from '../../validation/removeEmptyObject';
 
 class Cam extends Component {
@@ -43,7 +43,9 @@ class Cam extends Component {
       currentproduct: '',
       productItem: [],
       consistentBrandYear: '2017',
-      consistentItem: []
+      consistentItem: [],
+      newbrand: [],
+      newbrandmdl: false
     }
     this.getTopCategory = this.getTopCategory.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -52,6 +54,10 @@ class Cam extends Component {
   componentDidMount() {
     let t = this;
     t.refilterdata();
+    this.newbrandfn()
+    document.getElementById('newbrandbtn').addEventListener("click", function (e) {
+      t.setState({ newbrandmdl: true });
+    })
     document.querySelector('.filter-submit').addEventListener("click", function (e) {
       t.refilterdata();
       t.consistentBrand();
@@ -72,6 +78,86 @@ class Cam extends Component {
     this.setState({
       [name]: value
     });
+  }
+  newbrandfn() {
+    const beforedata =
+      [].concat.apply([], data.data
+        .map((rowdata, index) => rowdata.before
+          .map((data) => ({
+            screenid: index,
+            year: rowdata.year,
+            month: rowdata.month,
+            zone: rowdata.zone,
+            city: rowdata.city,
+            brandName: data.brandName,
+            productname: data.productname,
+            category: data.category,
+            language: data.language,
+            duration: data.duration,
+            addposition: 'before'
+          }))
+        ))
+    //after data
+    const duringdata =
+      [].concat.apply([], data.data
+        .map((rowdata, index) => rowdata.during
+          .map((data) => ({
+            screenid: index,
+            year: rowdata.year,
+            month: rowdata.month,
+            zone: rowdata.zone,
+            city: rowdata.city,
+            brandName: data.brandName,
+            productname: data.productname,
+            category: data.category,
+            language: data.language,
+            duration: data.duration,
+            addposition: 'during'
+          }))
+        ))
+    const finaldata = beforedata.concat(duringdata)
+    const reblank = _.remove(finaldata, function (e) {
+      return e.brandName !== '' && e.category !== '45' && e.category !== '30' && e.category !== '60' && e.brandName !== '30' && e.productname !== '30' && e.productname !== '40';
+    });
+    let mL = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    var d = new Date();
+    var m = d.getMonth();
+    let thismonth = mL[5];
+    const thismonthbrand = [];
+    _.map(reblank, (item, index) => {
+      if (item.month === thismonth) {
+        thismonthbrand.push({ brandname: item.brandName, screenid: item.screenid })
+      }
+    });
+
+
+
+    let arrayOfObjCat = _.map(
+      _.uniq(
+        _.map(thismonthbrand, function (obj) {
+          return JSON.stringify(obj);
+        })
+      ), function (obj) {
+        return JSON.parse(obj);
+      }
+    );
+
+
+    let categoryObject = _.countBy(arrayOfObjCat, "brandname");
+    let result = _.chain(categoryObject)
+      .map((val, key) => {
+        return { name: key, count: val }
+      })
+      .sortBy('count')
+      .reverse()
+      .keyBy('name')
+      .mapValues('count')
+      .value();
+    const aa = Object.entries(result).map(function ([key, value], index) {
+      return { 'text': key, 'value': value }
+    })
+    this.setState({ newbrand: aa })
+    console.log(JSON.stringify(aa))
   }
   consistentBrand() {
     const beforedata =
@@ -233,6 +319,9 @@ class Cam extends Component {
   onCloseModal = () => {
     this.setState({ consitmodal: false });
   };
+  onCloseNewbrandModal = () => {
+    this.setState({ newbrandmdl: false });
+  }
   onOpenBrandModal = () => {
     this.setState({ brandmodal: true });
   };
@@ -521,13 +610,15 @@ class Cam extends Component {
   }
 
   render() {
-    const { consitmodal, brandmodal, brandItem, currentcatname, productModal, currentbrand, productItem, consistentItem, currentproduct } = this.state;
+    const { consitmodal, brandmodal, brandItem, currentcatname, productModal, currentbrand, productItem, consistentItem, currentproduct, newbrand, newbrandmdl } = this.state;
     let mstyles = {
       width: '350px',
     };
     const data = [
       { "data": { "kausar": 3, "ansari": 4 } }
     ];
+    const fontSizeMapper = newbrand => Math.log2(newbrand.value) * 10;
+    const rotate = newbrand => newbrand.value % 360;
 
     return (
       <div className="clearfix">
@@ -750,6 +841,15 @@ class Cam extends Component {
               </tbody>
             </table>
           </div>
+        </Modal>
+        <Modal open={newbrandmdl} onClose={this.onCloseNewbrandModal} center classNames={{ 'modal': 'modalcontainer', 'overlay': 'constoverlay' }}>
+          <h2 class="modaltitle" style={{ backgroundColor: '#e04a49' }}>New Brand Entry This Month</h2>
+          <WordCloud
+            data={newbrand}
+            fontSizeMapper={fontSizeMapper}
+            rotate={rotate}
+            title='sdsdf'
+          />,
         </Modal>
         <Modal open={consitmodal} onClose={this.onCloseModal} center classNames={{ 'modal': 'modalcontainer', 'overlay': 'constoverlay' }}>
           <LineChart data={consistentItem} xtitle="2018" ytitle="Spots" height="600px" title="Consistent Brands Month Wise" />

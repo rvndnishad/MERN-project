@@ -335,3 +335,13 @@ h3{
 	background: linear-gradient(to right, #6819e8 0%,#7437d0 35%,#615fde 68%,#6980f2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6819e8', endColorstr='#6980f2',GradientType=1 ); /* IE6-9 */
 }
+.sol-logo{
+    position: relative;
+    display: inline-block;
+}
+.sol-logo img {
+    width: auto;
+}
+a.lglink {
+    margin: 0 5px;
+}

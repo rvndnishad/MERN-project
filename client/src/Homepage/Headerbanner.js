@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter, Link } from "react-router-dom";
 
 const Banner = (props) => {
     return (
@@ -16,7 +17,12 @@ const Banner = (props) => {
                                     </h1>
                                     <hr className="bottomReveal" />
                                     <p className="bottomReveal">Powered By <img className="logo-inte" src={require('../asset/Images/interactive-logo.png')} alt="" /></p>
-                                    <img src={require('../asset/Images/all-logo.png')} />
+                                    <div className="sol-logo">
+                                        <Link to="/dashboard/buzz-index" className="lglink"><img src={require('../asset/Images/buzzlogo.png')} /></Link>
+                                        <Link to="/dashboard/cam" className="lglink"><img src={require('../asset/Images/camlogo.png')} /></Link>
+                                        <Link to="/dashboard/ad-impact" className="lglink"><img src={require('../asset/Images/addimlogo.png')} /></Link>
+                                        <Link to="/dashboard/bingo" className="lglink"><img src={require('../asset/Images/bingologos.png')} /></Link>
+                                    </div>
                                 </div>
                             </div>
                         </div>

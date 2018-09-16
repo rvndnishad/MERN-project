@@ -40,10 +40,6 @@ const Cam = Loadable({
   loading: Loading,
 });
 
-const Cat = Loadable({
-  loader: () => import('./CinemaInABox/CAM/Cat'),
-  loading: Loading,
-});
 
 const AdImpact = Loadable({
   loader: () => import('./CinemaInABox/AdImpact/AdImpact'),
@@ -60,12 +56,17 @@ const UpcommingMovieRelease = Loadable({
   loading: Loading,
 });
 
+/* const Home = Loadable({
+  loader: () => import('./Homepage/Home'),
+  loading: Loading,
+}); */
+
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
+  /* { path: '/', name: 'Home', component: Home }, */
   { path: '/dashboard/buzz-index', name: 'Buzz Index', component: BuzzIndex },
   { path: '/dashboard/cam', name: 'Cam', component: Cam },
-  { path: '/dashboard/cat', name: 'Cat', component: Cat },
   { path: '/dashboard/ad-impact', name: 'Ad Impact', component: AdImpact },
   { path: '/dashboard/bingo', name: 'Bingo', component: Bingo },
   { path: '/dashboard/upcoming-movie-release', name: 'Upcoming Movie Release', component: UpcommingMovieRelease },

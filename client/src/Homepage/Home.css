@@ -1,0 +1,273 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:400,700%7cRaleway:300,400,400i,500,600,700,900');
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,600,600i,700,700i');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,600i,700,700i,800,800i,900,900i');
+
+.title{
+    color: red;
+}
+.hero-area {
+    height: 100vh;
+    text-align: center;
+    position: relative;
+    background: url(../asset/Images/parallex-bg.jpg);
+    background-size: cover;
+}
+.hero-content {
+    width: 100%;
+    height: 100%;
+    display: table;
+}
+.hero-content-center {
+    vertical-align: middle;
+    display: table-cell;
+}
+.navbarcst{
+    /* background-color: rgba(255,255,255,.1); */
+        background-color: #000;
+        font-family: Oswald, sans-serif;
+        font-size: 16px;
+        text-transform: uppercase;
+        font-weight: 400;
+        letter-spacing: 0.6px;
+}
+.navbar-brand{
+    background: url(../asset/Images/Logo.jpg);
+    width: 197px;
+    background-size: 506px;
+    background-position: -292px center;
+    background-repeat: no-repeat;
+    height: 70px;
+}
+.hero-col h2 {
+    font-family: 'Lobster', cursive;
+    font-weight: normal;
+    font-size: 60px;
+    color: #f3f3f3;
+    margin-bottom: 30px;
+    letter-spacing: 2px;
+    text-shadow: 2px 5px 5px #000;
+}
+.hero-col h2 span {
+    color: #14BBF8;
+}
+.hero-col h4{
+    color: #ffffff;
+    text-shadow: 1px 1px 1px #000000;
+    font-weight: 700;
+    font-size: 26px;
+}
+
+.hero-col {
+    position: relative;
+    display: inline-block;
+    padding: 30px 40px 40px;
+}
+
+.hero-col:before, .adim-outline:before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    border: 3px solid #14BBF8;
+    border-bottom: none;
+    border-right: none;
+    width: 150px;
+    height: 150px;
+}
+.hero-col:after, .adim-outline:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    border: 3px solid #14BBF8;
+    border-top: none;
+    border-left: none;
+    width: 150px;
+    height: 150px;
+}
+.lgx-about3 {
+    position: relative;
+    background-color: #fff;
+    background-position: -123px bottom;
+}
+.buzz-bg{
+    background: url(../asset/Images/about-bg2.jpg) bottom no-repeat;
+    -webkit-background-size: auto auto,cover;
+    -o-background-size: auto auto,cover;
+    -moz-background-size: auto auto,cover;
+    background-size: auto auto,cover;
+    position: relative;
+    background-color: #fff;
+}
+.lgx-inner {
+    padding: 132px 0;
+}
+.shep-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 0;
+    width: 350px;
+    height: auto;
+}
+.shep-left {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 0;
+    width: 350px;
+    height: auto;
+}
+.camlogo{
+    width: 200px;
+}
+.camsecPic{
+    border: solid 2px #fff;
+    background-color: #fff;
+}
+.camlogo{
+    width: 140px;
+    margin-bottom: 25px;
+}
+p, .unlist{
+   font-family: 'Poppins', sans-serif;
+       font-size: 16px;
+    font-weight: 400;
+    line-height: 28px;
+    color: rgba(50,51,51,.8);
+}
+.lead{
+    color: rgba(50,51,51,.8);
+}
+h3{
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.lgx-footer {
+    background-image: url(../asset/Images/footer-bg.jpg);
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    text-align: center;
+}
+.lgx-footer .lgx-inner-footer {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 75px 0;
+}
+.lgx-footer .lgx-inner-footer.green {
+    background: rgba(184, 229, 241, .85);
+}
+.lgx-footer .logo{
+    width: 300px;
+    display: inline-block;
+}
+.lgx-footer .logo.addimp{
+    width: 200px;
+}
+.buzz-intro{
+    font-size: 18px;
+    font-weight: 700;
+}
+.buzzlead{
+    max-width: 800px;
+    display: inline-block;
+    padding-bottom: 100px;
+}
+.mapimage{
+    max-width: 450px;
+    display: inline-block;
+}
+.adim-outline{
+    padding: 25px;
+}
+.adim-outline:before, .adim-outline:after{
+    border-width: 5px;
+}
+.adim-outline:before{
+    border-color: #4CAF50;
+}
+.adim-outline:after{
+    border-color: #ef3895;
+}
+
+.jarallax {
+    position: relative;
+    z-index: 0;
+}
+.jarallax > .jarallax-img {
+    position: absolute;
+    object-fit: cover;
+    /* support for plugin https://github.com/bfred-it/object-fit-images */
+    font-family: 'object-fit: cover;';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+.organizer-area {
+    padding: 150px 0;
+}
+.over-layer-black:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+.organizer-area.over-layer-black:before {
+    background: rgba(0,0,0,0.6);
+}
+.organizer-col img {
+    max-width: 200px;
+}
+.organizer-area{
+    color:#fff;
+}
+.organizer-area .lead{
+    color:#fff;
+    margin: 15px 0 50px;
+}
+.organizer-area p{
+    color: rgba(255, 255, 255, 0.5);
+}
+.bingo-resize{
+    border:solid 2px #ef3895;
+    background: rgba(0,0,0,0.2);
+    padding: 15px;
+    position: relative;
+}
+.bingo-resize:before {
+    content: '';
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    border-top: solid 2px #503798;
+    border-left: solid 2px #503798;
+}
+.bingo-resize:after {
+    content: '';
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    right: -2px;
+    bottom: -2px;
+    border-right: solid 2px #503798;
+    border-bottom: solid 2px #503798;
+}
+.footer-copyright{
+    background-color: #000;
+    color: #fff;
+    padding: 25px;
+}

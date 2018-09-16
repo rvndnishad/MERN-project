@@ -22,7 +22,8 @@ import 'font-awesome/css/font-awesome.min.css';
 // Import Main styles for this application
 import './scss/style.css'
 
-import { DefaultLayout }  from './containers';
+import { DefaultLayout } from './containers';
+import HomeLayout from './Homepage/Home';
 // import Register from './components/auth/Register';
 import Login from './components/auth/Login';
 
@@ -44,7 +45,7 @@ if (localStorage.jwtToken) {
     // TODO: Clear current Profile
 
     // Redirect to login
-    window.location.href = '/login';
+    window.location.href = '/';
   }
 }
 
@@ -54,14 +55,12 @@ class App extends Component {
       <Provider store={store}>
         <Router>
           <div className="App">
-          <Switch>
-            <Route exact path="/portfolio" component={Portfolio} />
-            {/*<Route exact path="/login" component={Login} />*/}
             <Switch>
-                <PrivateRoute path="/" component={DefaultLayout} />
+              <Route exact path="/" component={HomeLayout} />
+              <Route exact path="/login" component={Login} />
+              <PrivateRoute path="/" component={DefaultLayout} />
             </Switch>
-          </Switch>
-            </div>
+          </div>
         </Router>
       </Provider>
     );

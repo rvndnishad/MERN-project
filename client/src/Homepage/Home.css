@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Lobster');
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,600,600i,700,700i');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,600i,700,700i,800,800i,900,900i');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900');
 
 .title{
     color: red;
@@ -16,7 +17,7 @@
 }
 .abc{
     background: #6819e8; /* Old browsers */
-	background: linear-gradient(to right, rgba(104, 25, 232, 0.8) 0%,rgba(116, 55, 208, 0.8) 35%,rgba(97, 95, 222, 0.8) 68%,#6980f2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	background: linear-gradient(to right, rgba(104, 25, 232, 1) 0%,rgba(116, 55, 208, 1) 35%,rgba(97, 95, 222, 1) 68%,#6980f2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
     width: 100%;
     position: absolute;
     left: 0px;
@@ -28,9 +29,43 @@
     height: 100%;
     display: table;
 }
-.hero-content-center {
+.hero-area .hero-content-center {
     vertical-align: middle;
     display: table-cell;
+}
+.hero-area, .hero-area *{
+    font-family: 'Roboto', sans-serif;
+    color: #ffffff;
+}
+.hero-area h1 {
+    font-size: 63px;
+    font-weight: 100;
+    color: #fff;
+}
+.hero-area h1 strong{
+    font-weight: 700;
+}
+.hero-area hr {
+    border-width: 1px 0px;
+    border-style: dotted none;
+    border-color: rgba(255, 255, 255, 0.35);
+    -moz-border-top-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-bottom-colors: none;
+    -moz-border-left-colors: none;
+    border-image: none;
+    width: 49px;
+    height: 4px;
+    text-align: center;
+    position: relative;
+    clear: both;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.hero-area p {
+    margin-bottom: 15px;
+    font-size: 21px;
+    font-weight: 200;
 }
 .navbarcst{
     /* background-color: rgba(255,255,255,.1); */
@@ -74,7 +109,9 @@
     display: inline-block;
     padding: 30px 40px 40px;
 }
-
+.hero-col:before, .hero-col:after{
+    display: none;
+}
 .hero-col:before, .adim-outline:before {
     content: "";
     position: absolute;

@@ -10,10 +10,12 @@ const Banner = (props) => {
                         <div className="row">
                             <div className="col-md-12">
                                 <div className="hero-col animatedParent animateOnce">
-                                    <h2 style={{ marginBottom: '0px' }}>Welcome to GroupM's</h2>
-                                    <h2 className="animated fadeInDownBig" data-sequence="500"><span>Cinema In A Box</span></h2>
-                                    <h4 className="animated fadeInUpBig" data-sequence="800">One platform for all cinema monitoring & measuring needs.</h4>
-                                    <div style={{ paddingTop: '35px' }}><a href="" className="btn btn-lg btn-danger">More</a></div>
+                                    <h1 className="scaleReveal">
+                                        Welcome to <br />GroupM's <br />
+                                        <strong>Cinema In A Box</strong>.
+                                    </h1>
+                                    <hr className="bottomReveal" />
+                                    <p className="bottomReveal">One platform for all cinema monitoring &amp; measuring needs.</p>
                                 </div>
                             </div>
                         </div>

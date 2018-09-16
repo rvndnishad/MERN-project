@@ -2,6 +2,13 @@ import React from 'react';
 import { BrowserRouter, Link } from "react-router-dom";
 
 const Topnavigation = (props) => {
+    let loginbtn = true;
+    if (localStorage.jwtToken) {
+        loginbtn = false;
+    } else {
+        loginbtn = true;
+    }
+
     return (
         <header className="main-header">
             <nav className="navbar navbar-expand-lg fixed-top navbar-dark navbarcst">
@@ -33,7 +40,11 @@ const Topnavigation = (props) => {
                             </li>
                         </ul>
                     </div>
-                    <Link to="/login" className="btn btn-danger login-btn justify-content-end">Login</Link>
+                    {
+                        loginbtn === true ? <Link to="/login" className="btn btn-danger login-btn justify-content-end">Login</Link> :
+                            <Link to="#" onClick={props.click} className="btn btn-danger login-btn justify-content-end">Logout</Link>
+                    }
+
                 </div>
             </nav>
         </header>

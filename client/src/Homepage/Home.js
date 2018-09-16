@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import PropTypes from 'prop-types';
+import { logoutUser } from '../actions/authActions';
 import { connect } from "react-redux";
 import './Animate.min.css';
 import './Home.css';
@@ -16,6 +18,9 @@ import {
 } from 'jarallax';
 import Particles from 'react-particles-js';
 
+const propTypes = {
+    children: PropTypes.node,
+};
 
 class Home extends Component {
     componentDidMount() {
@@ -49,11 +54,15 @@ class Home extends Component {
         $(window).on('scroll', doAnimations);
         $(window).trigger('scroll');
     }
+    onLogoutClick(e) {
+        e.preventDefault();
+        this.props.logoutUser();
+    }
     render() {
         const logo = '../asset/Images/parallex-bg.jpg';
         return (
             <div className="clearfix">
-                <Topnavigation />
+                <Topnavigation click={this.onLogoutClick.bind(this)} />
                 <Banner>
                     <Particles className="abc"
                         params={{
@@ -184,6 +193,11 @@ class Home extends Component {
         )
     }
 }
+Home.propTypes = propTypes;
+const mapStateToProps = state => ({
+    auth: state.auth
+});
 
-
-export default Home;
+export default connect(mapStateToProps, { logoutUser })(
+    Home
+);

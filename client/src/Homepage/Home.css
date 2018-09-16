@@ -77,13 +77,16 @@
         letter-spacing: 0.6px;
 }
 .navbar-brand{
-    /* background: url(../asset/Images/Logo.jpg); */
+    background: url(../asset/Images/Logo.jpg);
     width: 150px;
-    background-size: 506px;
-    background-position: -292px center;
+    background-size: 430px;
+    background-position: -250px center;
     background-repeat: no-repeat;
     margin-right: 55px;
-   /*  height: 70px; */
+    height: 45px;
+}
+.logo-inte{
+    width: 130px;
 }
 .hero-col h2 {
     font-family: 'Lobster', cursive;

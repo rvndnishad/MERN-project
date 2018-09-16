@@ -14,7 +14,7 @@ const Topnavigation = (props) => {
             <nav className="navbar navbar-expand-lg fixed-top navbar-dark navbarcst">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="index-one.html">
-                        <img className="logo-white" src={require('../asset/Images/Logo_White.png')} alt="" />
+                        {/* <img className="logo-white" src={require('../asset/Images/Logo_White.png')} alt="" /> */}
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">

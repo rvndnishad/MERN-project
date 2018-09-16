@@ -11,11 +11,12 @@ const Banner = (props) => {
                             <div className="col-md-12">
                                 <div className="hero-col animatedParent animateOnce">
                                     <h1 className="scaleReveal">
-                                        Welcome to <br />GroupM's <br />
+                                        Welcome to <br />
                                         <strong>Cinema In A Box</strong>.
                                     </h1>
                                     <hr className="bottomReveal" />
-                                    <p className="bottomReveal">One platform for all cinema monitoring &amp; measuring needs.</p>
+                                    <p className="bottomReveal">Powered By <img className="logo-inte" src={require('../asset/Images/interactive-logo.png')} alt="" /></p>
+                                    <img src={require('../asset/Images/all-logo.png')} />
                                 </div>
                             </div>
                         </div>

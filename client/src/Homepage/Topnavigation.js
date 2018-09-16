@@ -5,17 +5,16 @@ const Topnavigation = (props) => {
     return (
         <header className="main-header">
             <nav className="navbar navbar-expand-lg fixed-top navbar-dark navbarcst">
-                <div className="container">
+                <div className="container-fluid">
                     <a className="navbar-brand" href="index-one.html">
-                        <img className="logo-white" src="images/logo.png" alt="" />
-                        <img className="logo-black" src="images/logo-black.png" alt="" />
+                        <img className="logo-white" src={require('../asset/Images/Logo_White.png')} alt="" />
                     </a>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
 
-                    <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+                    <div className="collapse navbar-collapse left-content-end" id="navbarSupportedContent">
                         <ul className="navbar-nav">
                             <li className="nav-item">
                                 <Link to="/" className="nav-link page-scroll active">Home</Link>
@@ -33,8 +32,8 @@ const Topnavigation = (props) => {
                                 <Link to="/dashboard/bingo" className="nav-link page-scroll">bingo</Link>
                             </li>
                         </ul>
-                        <Link to="/login" className="btn btn-danger login-btn">Login</Link>
                     </div>
+                    <Link to="/login" className="btn btn-danger login-btn justify-content-end">Login</Link>
                 </div>
             </nav>
         </header>

@@ -12,6 +12,16 @@
     position: relative;
     background: url(../asset/Images/parallex-bg.jpg);
     background-size: cover;
+    
+}
+.abc{
+    background: #6819e8; /* Old browsers */
+	background: linear-gradient(to right, rgba(104, 25, 232, 0.8) 0%,rgba(116, 55, 208, 0.8) 35%,rgba(97, 95, 222, 0.8) 68%,#6980f2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    width: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    height: 100%;
 }
 .hero-content {
     width: 100%;
@@ -32,12 +42,13 @@
         letter-spacing: 0.6px;
 }
 .navbar-brand{
-    background: url(../asset/Images/Logo.jpg);
-    width: 197px;
+    /* background: url(../asset/Images/Logo.jpg); */
+    width: 150px;
     background-size: 506px;
     background-position: -292px center;
     background-repeat: no-repeat;
-    height: 70px;
+    margin-right: 55px;
+   /*  height: 70px; */
 }
 .hero-col h2 {
     font-family: 'Lobster', cursive;
@@ -54,8 +65,8 @@
 .hero-col h4{
     color: #ffffff;
     text-shadow: 1px 1px 1px #000000;
-    font-weight: 700;
-    font-size: 26px;
+    font-weight: 500;
+    font-size: 22px;
 }
 
 .hero-col {
@@ -270,4 +281,17 @@ h3{
     background-color: #000;
     color: #fff;
     padding: 25px;
+}
+#particles-js {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 50% 50%;
+	background: #6819e8; /* Old browsers */
+	background: -moz-linear-gradient(left, #6819e8 0%, #7437d0 35%, #615fde 68%, #6980f2 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(left, #6819e8 0%,#7437d0 35%,#615fde 68%,#6980f2 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to right, #6819e8 0%,#7437d0 35%,#615fde 68%,#6980f2 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6819e8', endColorstr='#6980f2',GradientType=1 ); /* IE6-9 */
 }

@@ -1,7 +1,6 @@
 const express = require('express');
 const multer = require("multer");
-
-const XLSX = require("xlsx");
+const formatCamData = require("../../validation/formatCamData");
 const xlstojson = require("xls-to-json-lc");
 const xlsxtojson = require("xlsx-to-json");
 const passport = require('passport');

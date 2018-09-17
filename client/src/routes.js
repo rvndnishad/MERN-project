@@ -5,10 +5,10 @@ function Loading() {
   return <div className="header">Loading...</div>;
 }
 
-const Portfolio = Loadable({
-  loader: () => import('./CinemaInABox/Portfolio/Portfolio'),
-  loading: Loading,
-});
+// const Portfolio = Loadable({
+//   loader: () => import('./CinemaInABox/Portfolio/Portfolio'),
+//   loading: Loading,
+// });
 
 // const ExcelUpload = Loadable({
 //   loader: () => import('./ExcelUpload/excelupload'),
@@ -73,8 +73,8 @@ const routes = [
   // { path: '/excel-upload', name: 'Excel Upload', component: ExcelUpload },
   { path: '/register', name: 'Register', component: Register },
   { path: '/users', name: 'Users', component: users },
-  { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  { path: '/portfolio', name: 'Portfolio', component: Portfolio }
+  { path: '/dashboard', name: 'Dashboard', component: Dashboard }
+  // { path: '/portfolio', name: 'Portfolio', component: Portfolio }
 ];
 
 

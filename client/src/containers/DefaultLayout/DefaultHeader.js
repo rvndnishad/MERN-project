@@ -6,7 +6,7 @@ import { BrowserRouter, Link } from "react-router-dom";
 import PropTypes from 'prop-types';
 import { logoutUser } from './../../actions/authActions';
 import { AppAsideToggler, AppHeaderDropdown, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import logo from '../../asset/CinemaInABox.png';
+import logo from '';
 import sygnet from '../../asset/speedometer.svg';
 
 import { connect } from 'react-redux';

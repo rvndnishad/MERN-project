@@ -9,7 +9,7 @@ import store from './store';
 
 import PrivateRoute from '../src/components/common/PrivateRoute';
 
-import Portfolio from "./CinemaInABox/Portfolio/Portfolio";
+// import Portfolio from "./CinemaInABox/Portfolio/Portfolio";
 
 import './App.css';
 // Styles

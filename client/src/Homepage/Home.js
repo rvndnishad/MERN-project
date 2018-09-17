@@ -11,11 +11,11 @@ import Buzzindex from './Buzzindex';
 import Addimpact from './Addimpact';
 import Bingo from './Bingo';
 import $ from 'jquery';
-// import {
-//     jarallax,
-//     jarallaxElement,
-//     jarallaxVideo
-// } from 'jarallax';
+import {
+    jarallax,
+    jarallaxElement,
+    jarallaxVideo
+} from 'jarallax';
 import Particles from 'react-particles-js';
 
 const propTypes = {
@@ -24,11 +24,11 @@ const propTypes = {
 
 class Home extends Component {
     componentDidMount() {
-        // jarallaxVideo();
-        // jarallaxElement();
-        // jarallax(document.querySelectorAll('.jarallax'), {
-        //     speed: 0.2
-        // });
+        jarallaxVideo();
+        jarallaxElement();
+        jarallax(document.querySelectorAll('.jarallax'), {
+            speed: 0.2
+        });
         var doAnimations = function () {
 
             // Calc current offset and get all animatables

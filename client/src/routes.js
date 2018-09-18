@@ -10,10 +10,10 @@ function Loading() {
 //   loading: Loading,
 // });
 
-// const ExcelUpload = Loadable({
-//   loader: () => import('./ExcelUpload/excelupload'),
-//   loading: Loading,
-// });
+const ExcelUpload = Loadable({
+  loader: () => import('./ExcelUpload/excelupload'),
+  loading: Loading,
+});
 
 const Register = Loadable({
   loader: () => import('../src/components/auth/Register'),
@@ -70,7 +70,7 @@ const routes = [
   { path: '/dashboard/ad-impact', name: 'Ad Impact', component: AdImpact },
   { path: '/dashboard/bingo', name: 'Bingo', component: Bingo },
   { path: '/dashboard/upcoming-movie-release', name: 'Upcoming Movie Release', component: UpcommingMovieRelease },
-  // { path: '/excel-upload', name: 'Excel Upload', component: ExcelUpload },
+   { path: '/excel-upload', name: 'Excel Upload', component: ExcelUpload },
   { path: '/register', name: 'Register', component: Register },
   { path: '/users', name: 'Users', component: users },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard }

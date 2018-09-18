@@ -5,7 +5,7 @@ const xlstojson = require("xls-to-json-lc");
 const xlsxtojson = require("xlsx-to-json");
 const passport = require('passport');
 var mongoose = require("mongoose");
-
+const convertExcel  = require("excel-as-json").processFile;
 const router = express.Router();
 
 router.get('/test', (req, res) => res.json({ msg: 'Users Works' }));
@@ -61,37 +61,44 @@ router.post('/',  function(req, res) {
             /** Check the extension of the incoming file and 
              *  use the appropriate module
              */
-            if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
-                exceltojson = xlsxtojson;
-            } else {
-                exceltojson = xlstojson;
-            }
-        try {
-            exceltojson({
-                input: req.file.path, //the same path where we uploaded our file
-                output: null, //since we don't need output.json
-                lowerCaseHeaders: true
-            }, function (err, result) {
-                if (err) {
-                    errors.xls = err;
-                    //return res.json({ error_code: 1, err_desc: err, data: null });
-                    return res.status(400).json(errors);
+
+            convertExcel(req.file.path, undefined, undefined, (err, data) => {
+                if(err){
+                    return res.status(400).json(err)
                 }
-                res.json(result);
-
-                //new Cam().save().then(CamDatabase => res.json(CamDatabase));
-
-                  res.json({
-                    error_code: 0,
-                    err_desc: null,
-                    data: result
-                  });
+                res.json(data)
             });
-        } catch (e) {
-            errors.fileCorupt = "Corupted excel file";
-            return res.status(400).json(errors);
-            //res.json({ error_code: 1, err_desc: "Corupted excel file" });
-        }
+
+        //     if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1] === 'xlsx'){
+        //         exceltojson = xlsxtojson;
+        //     } else {
+        //         exceltojson = xlstojson;
+        //     }
+        // try {
+        //     exceltojson({
+        //         input: req.file.path, //the same path where we uploaded our file
+        //         output: null, //since we don't need output.json
+        //         lowerCaseHeaders: true
+        //     }, function (err, result) {
+        //         if (err) {
+        //             errors.xls = err;
+        //             //return res.json({ error_code: 1, err_desc: err, data: null });
+        //             return res.status(400).json(errors);
+        //         }
+                
+        //         //new Cam().save().then(CamDatabase => res.json(CamDatabase));
+
+        //           res.json({
+        //             error_code: 0,
+        //             err_desc: null,
+        //             data: result
+        //           });
+        //     });
+        // } catch (e) {
+        //     errors.fileCorupt = "Corupted excel file";
+        //     return res.status(400).json(errors);
+        //     //res.json({ error_code: 1, err_desc: "Corupted excel file" });
+        // }
     });
 });
 

@@ -157,7 +157,7 @@ class Cam extends Component {
       return { 'text': key, 'value': value }
     })
     this.setState({ newbrand: aa })
-    console.log(JSON.stringify(aa))
+    //console.log(JSON.stringify(aa))
   }
   consistentBrand() {
     const beforedata =

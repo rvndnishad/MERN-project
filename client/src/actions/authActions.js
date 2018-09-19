@@ -28,7 +28,7 @@ export const uploadExcel = (excelData, history) => dispatch => {
       }
   }
   console.log(excelData);
-  
+
   axios
     .post('/api/upload', data, config)
     .then(res => { console.log(res.data); history.push('/dashboard/cam') })

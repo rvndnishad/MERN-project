@@ -35,7 +35,7 @@ class DefaultHeader extends Component {
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
-        <AppNavbarBrand
+        <AppNavbarBrand className="adminbrand"
           minimized={{ src: sygnet, width: 30, height: 40, alt: 'Cinema In A Box' }}
         />
         <AppSidebarToggler className="d-md-down-none left-toggler" display="lg" />

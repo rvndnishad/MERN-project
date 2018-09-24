@@ -2,7 +2,7 @@
 @import url("https://fonts.googleapis.com/css?family=Roboto");
 /*!
  * CoreUI - Open Source Dashboard UI Kit
- * @version v2.0.6
+ * @version v2.0.4
  * @link https://coreui.io
  * Copyright (c) 2018 creativeLabs Łukasz Holeczek
  * Licensed under MIT (https://coreui.io/license)
@@ -10365,6 +10365,9 @@ body[class="aside-menu-hidden"] .app-footer {
   margin-right: -20px;
   margin-top: -19px;
   margin-bottom: 0; }
+
+.adminbrand {
+  background-position: 0 center !important; }
 
 html body .app.flex-row.align-items-center {
   height: 100vh; }
